@@ -7,22 +7,24 @@ class OnBoardingPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      children: [
-        PageViewItem(
-          image: Assets.imagesFruitBasket,
-          backgroundImage: Assets.imagesPaigeBackground,
-          subTitle:
-              'اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.',
-          title: Row(
-            children: [
-              Text('Fruit'),
-              Text('HUB'),
-              Text('مرحبا بك في'),
-            ],
-          ),
-        )
-      ],
+    return Expanded(
+      child: PageView(
+        children: [
+          PageViewItem(
+            image: Assets.imagesFruitBasket,
+            backgroundImage: Assets.imagesPaigeBackground,
+            subTitle:
+                'اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.',
+            title: Row(
+              children: [
+                Text('Fruit'),
+                Text('HUB'),
+                Text('مرحبا بك في'),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
