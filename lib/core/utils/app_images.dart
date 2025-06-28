@@ -18,6 +18,14 @@ class Assets {
   /// assets/images/fruits_icon.png
   static const String imagesFruitsIcon = "assets/images/fruits_icon.png";
 
+  /// Assets for imagesGreenBackground
+  /// assets/images/greenBackground.svg
+  static const String imagesGreenBackground = "assets/images/greenBackground.svg";
+
+  /// Assets for imagesPaigeBackground
+  /// assets/images/paigeBackground.svg
+  static const String imagesPaigeBackground = "assets/images/paigeBackground.svg";
+
   /// Assets for imagesPineapple
   /// assets/images/pineapple.svg
   static const String imagesPineapple = "assets/images/pineapple.svg";
