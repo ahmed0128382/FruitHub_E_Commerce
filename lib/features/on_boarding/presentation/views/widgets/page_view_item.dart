@@ -26,6 +26,24 @@ class PageViewItem extends StatelessWidget {
                   fit: BoxFit.fill,
                 ),
               ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: SvgPicture.asset(
+                  image,
+                ),
+              ),
+              SafeArea(
+                  child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: const Text(
+                  'تخط',
+                  style: TextStyle(
+                    fontSize: 19,
+                  ),
+                ),
+              )),
             ],
           ),
         )
