@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/app_images.dart';
+import 'package:fruit_hub/core/utils/app_styles.dart';
 import 'package:fruit_hub/features/on_boarding/presentation/views/widgets/page_view_item.dart';
 
 class OnBoardingPageView extends StatelessWidget {
@@ -12,9 +14,10 @@ class OnBoardingPageView extends StatelessWidget {
         controller: pageController,
         children: [
           PageViewItem(
-            isVisible: (pageController.hasClients
-                ? pageController.page!.round() == 0
-                : true),
+            isVisible: true,
+            // isVisible: (pageController.hasClients
+            //     ? pageController.page!.round() == 0
+            //     : true),
             image: Assets.imagesFruitBasket,
             backgroundImage: Assets.imagesPaigeBackground,
             subTitle:
@@ -24,31 +27,26 @@ class OnBoardingPageView extends StatelessWidget {
               children: [
                 Text(
                   'مرحبا بك في ',
-                  style: TextStyle(
-                      color: Color(0xff0c0d0d),
-                      fontSize: 23,
-                      fontFamily: 'Cairo',
-                      fontWeight: FontWeight.w700),
+                  style: AppStyles.bold23,
                 ),
-                Text('HUB',
-                    style: TextStyle(
-                        color: Color(0xff0c0d0d),
-                        fontSize: 23,
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.w700)),
+                Text(
+                  'HUB',
+                  style: AppStyles.bold23.copyWith(
+                    color: AppColors.secondaryColor,
+                  ),
+                ),
                 Text(
                   'Fruit',
-                  style: TextStyle(
-                      color: Color(0xff0c0d0d),
-                      fontSize: 23,
-                      fontFamily: 'Cairo',
-                      fontWeight: FontWeight.w700),
+                  style: AppStyles.bold23.copyWith(
+                    color: AppColors.primaryColor,
+                  ),
                 ),
               ],
             ),
           ),
           PageViewItem(
-            isVisible: !pageController.hasClients,
+            isVisible: false,
+            // isVisible: !pageController.hasClients,
             // isVisible: (pageController.hasClients
             //     ? pageController.page!.round() != 0
             //     : true),
@@ -59,11 +57,7 @@ class OnBoardingPageView extends StatelessWidget {
             title: Text(
               'ابحث و تسوق',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Color(0xff0c0d0d),
-                  fontSize: 23,
-                  fontFamily: 'Cairo',
-                  fontWeight: FontWeight.w700),
+              style: AppStyles.bold23,
             ),
           )
         ],

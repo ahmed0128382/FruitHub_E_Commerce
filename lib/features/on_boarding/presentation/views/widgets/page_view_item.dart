@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fruit_hub/core/utils/app_styles.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem(
@@ -41,11 +42,10 @@ class PageViewItem extends StatelessWidget {
                 child: SafeArea(
                     child: Padding(
                   padding: const EdgeInsets.all(24.0),
-                  child: const Text(
+                  child: Text(
                     'تخط',
-                    style: TextStyle(
-                      fontSize: 19,
-                    ),
+                    style:
+                        AppStyles.regular13.copyWith(color: Color(0xff949d9e)),
                   ),
                 )),
               ),
@@ -60,10 +60,13 @@ class PageViewItem extends StatelessWidget {
           height: 24,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 36.0),
+          padding: const EdgeInsets.symmetric(horizontal: 37.0),
           child: Text(
             subTitle,
             textAlign: TextAlign.center,
+            style: AppStyles.semiBold13.copyWith(
+              color: Color(0xff4e5456),
+            ),
           ),
         ),
       ],
