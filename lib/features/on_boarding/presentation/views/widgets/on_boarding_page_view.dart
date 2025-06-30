@@ -2,37 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/utils/app_images.dart';
 import 'package:fruit_hub/features/on_boarding/presentation/views/widgets/page_view_item.dart';
 
-class OnBoardingPageView extends StatefulWidget {
-  const OnBoardingPageView({super.key});
-
-  @override
-  State<OnBoardingPageView> createState() => _OnBoardingPageViewState();
-}
-
-class _OnBoardingPageViewState extends State<OnBoardingPageView> {
-  late PageController pageController;
-  var currentPage = 0;
-  @override
-  void initState() {
-    pageController = PageController();
-    pageController.addListener(() {
-      currentPage = pageController.page!.round();
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
-  }
-
+class OnBoardingPageView extends StatelessWidget {
+  const OnBoardingPageView({super.key, required this.pageController});
+  final PageController pageController;
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: PageView(
+        controller: pageController,
         children: [
           PageViewItem(
+            isVisible: (pageController.hasClients
+                ? pageController.page!.round() == 0
+                : true),
             image: Assets.imagesFruitBasket,
             backgroundImage: Assets.imagesPaigeBackground,
             subTitle:
@@ -66,6 +48,10 @@ class _OnBoardingPageViewState extends State<OnBoardingPageView> {
             ),
           ),
           PageViewItem(
+            isVisible: !pageController.hasClients,
+            // isVisible: (pageController.hasClients
+            //     ? pageController.page!.round() != 0
+            //     : true),
             image: Assets.imagesPineapple,
             backgroundImage: Assets.imagesGreenBackground,
             subTitle:
