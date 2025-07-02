@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/constants.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
+import 'package:fruit_hub/core/utils/app_images.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/core/widgets/custom_text_form_field.dart';
-import 'package:fruit_hub/features/auth/presentation/views/sign_up_view.dart';
 import 'package:fruit_hub/features/auth/presentation/views/widgets/dont_have_account_widget.dart';
 import 'package:fruit_hub/features/auth/presentation/views/widgets/or_divider.dart';
+import 'package:fruit_hub/features/auth/presentation/views/widgets/social_login_button.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(
-              height: 24,
+              height: 16,
             ),
             CustomTextFormField(
               suffixIcon: Icon(
@@ -67,6 +68,30 @@ class LoginViewBody extends StatelessWidget {
               height: 33,
             ),
             OrDivider(),
+            SizedBox(
+              height: 16,
+            ),
+            SocialLoginButton(
+              icon: AppImages.imagesGoogleIcon,
+              title: 'تسجيل بواسطة جوجل',
+              onPressed: () {},
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            SocialLoginButton(
+              icon: AppImages.imagesAppleIcon,
+              title: 'تسجيل بواسطة أبل',
+              onPressed: () {},
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            SocialLoginButton(
+              icon: AppImages.imagesFaceBookIcon,
+              title: 'تسجيل بواسطة فيسبوك',
+              onPressed: () {},
+            ),
           ],
         ),
       ),

@@ -29,12 +29,12 @@ class _SplashViewBodyState extends State<SplashViewBody> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SvgPicture.asset(Assets.imagesPlantInject),
+            SvgPicture.asset(AppImages.imagesPlantInject),
           ],
         ),
-        SvgPicture.asset(Assets.imagesFruitHub),
+        SvgPicture.asset(AppImages.imagesFruitHub),
         SvgPicture.asset(
-          Assets.imagesCircles,
+          AppImages.imagesCircles,
           fit: BoxFit.fill,
         ),
       ],
