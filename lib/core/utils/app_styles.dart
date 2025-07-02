@@ -65,6 +65,12 @@ abstract class AppStyles {
     fontSize: 11,
     color: Color(0xff0c0d0d),
   );
+  static const TextStyle semiBold19 = TextStyle(
+    fontFamily: 'Cairo',
+    fontWeight: FontWeight.w600,
+    fontSize: 19,
+    color: Color(0xff0c0d0d),
+  );
   static const TextStyle regular11 = TextStyle(
     fontFamily: 'Cairo',
     fontWeight: FontWeight.w600,
