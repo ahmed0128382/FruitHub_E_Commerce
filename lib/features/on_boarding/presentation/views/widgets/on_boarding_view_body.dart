@@ -4,7 +4,7 @@ import 'package:fruit_hub/constants.dart';
 import 'package:fruit_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/features/auth/presentation/views/login_view.dart';
-import 'package:fruit_hub/features/on_boarding/presentation/views/widgets/custom_button.dart';
+import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/features/on_boarding/presentation/views/widgets/on_boarding_page_view.dart';
 
 class OnBoardingViewBody extends StatefulWidget {
@@ -55,7 +55,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
           maintainAnimation: true,
           maintainState: true,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(kHorizontalPadding),
             child: CustomButton(
               text: 'ابدأ الأن',
               onTap: () {

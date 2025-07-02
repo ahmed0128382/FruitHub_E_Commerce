@@ -22,9 +22,9 @@ class FruitCommerceApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Cairo',
         scaffoldBackgroundColor: Colors.white,
-        // colorScheme: ColorScheme.fromSeed(
-        //   seedColor: AppColors.primaryColor,
-        // ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: AppColors.primaryColor,
+        ),
       ),
       localizationsDelegates: [
         S.delegate,
