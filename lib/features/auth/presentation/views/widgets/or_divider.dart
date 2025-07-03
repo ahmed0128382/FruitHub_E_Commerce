@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/constants.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
 
 class OrDivider extends StatelessWidget {
