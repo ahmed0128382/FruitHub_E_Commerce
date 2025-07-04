@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "269354342254",
+    "project_id": "fakahani-e-commerce",
+    "storage_bucket": "fakahani-e-commerce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269354342254:android:be6d1d61ede2d8b1bd937f",
+        "android_client_info": {
+          "package_name": "com.example.fruit_hub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOBaJ5VPFwGDDr0wPr8xvRddMOKfR-7qM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

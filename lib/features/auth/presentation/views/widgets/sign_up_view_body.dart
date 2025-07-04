@@ -3,7 +3,7 @@ import 'package:fruit_hub/constants.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruit_hub/features/auth/presentation/views/login_view.dart';
-import 'package:fruit_hub/features/auth/presentation/views/widgets/dont_have_account_widget.dart';
+import 'package:fruit_hub/features/auth/presentation/views/widgets/check_have_account_widget.dart';
 import 'package:fruit_hub/features/auth/presentation/views/widgets/terms_and_conditions.dart';
 
 class SignUpViewBody extends StatelessWidget {
@@ -48,7 +48,7 @@ class SignUpViewBody extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            DontHaveAccountWidget(
+            CheckHaveAccountWidget(
               notLinkedText: 'تمتلك حساب بالفعل؟',
               linkedText: 'تسجيل دخول',
               link: LoginView.routeName,

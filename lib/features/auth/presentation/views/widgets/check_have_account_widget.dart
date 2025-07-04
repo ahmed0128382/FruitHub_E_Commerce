@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
 
-class DontHaveAccountWidget extends StatelessWidget {
-  const DontHaveAccountWidget(
+class CheckHaveAccountWidget extends StatelessWidget {
+  const CheckHaveAccountWidget(
       {super.key,
       required this.notLinkedText,
       required this.linkedText,
