@@ -20,9 +20,7 @@ class AuthRepoImpl extends AuthRepo {
     } on CustomExceptions catch (e) {
       return left(ServerFailure(message: e.message));
     } catch (e) {
-      return left(ServerFailure(
-          message:
-              'unhandled nor expected exception while calling from server'));
+      return left(ServerFailure(message: '!خطأ غير متوقع'));
     }
     //throw UnimplementedError();
   }
