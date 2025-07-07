@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:fruit_hub/core/errors/exceptions.dart';
 import 'package:fruit_hub/core/errors/failure.dart';
@@ -20,6 +22,9 @@ class AuthRepoImpl extends AuthRepo {
     } on CustomExceptions catch (e) {
       return left(ServerFailure(message: e.message));
     } catch (e) {
+      log(
+        'Exception in AuthRepoImpl.createUserWithEmailAndPassword : ${e.toString()}',
+      );
       return left(ServerFailure(message: '!خطأ غير متوقع'));
     }
     //throw UnimplementedError();
