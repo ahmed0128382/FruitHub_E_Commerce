@@ -6,7 +6,7 @@ import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruit_hub/core/widgets/password_form_field.dart';
 import 'package:fruit_hub/features/auth/presentation/manager/signup_cubit/signup_cubit.dart';
-import 'package:fruit_hub/features/auth/presentation/views/login_view.dart';
+import 'package:fruit_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:fruit_hub/features/auth/presentation/views/widgets/check_have_account_widget.dart';
 import 'package:fruit_hub/features/auth/presentation/views/widgets/terms_and_conditions.dart';
 
@@ -95,7 +95,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               CheckHaveAccountWidget(
                 notLinkedText: 'تمتلك حساب بالفعل؟',
                 linkedText: 'تسجيل دخول',
-                link: LoginView.routeName,
+                link: SignIn.routeName,
               )
             ],
           ),
