@@ -4,23 +4,23 @@ import 'package:fruit_hub/core/services/get_it_service.dart';
 import 'package:fruit_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruit_hub/features/auth/domain/repos/auth_repo.dart';
 import 'package:fruit_hub/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
-import 'package:fruit_hub/features/auth/presentation/views/widgets/sign_in_view_body.dart';
+import 'package:fruit_hub/features/auth/presentation/views/widgets/sign_in_view_body_bloc_consumer';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
   static const routeName = 'login';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(
-        context,
-        title: 'تسجيل دخول',
+    return BlocProvider(
+      create: (context) => SignInCubit(
+        getIt<AuthRepo>(),
       ),
-      body: BlocProvider(
-        create: (context) => SignInCubit(
-          getIt<AuthRepo>(),
+      child: Scaffold(
+        appBar: buildAppBar(
+          context,
+          title: 'تسجيل دخول',
         ),
-        child: SignInViewBody(),
+        body: SignInViewBodyBlocConsumer(),
       ),
     );
   }
