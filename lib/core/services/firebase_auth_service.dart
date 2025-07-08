@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruit_hub/core/errors/exceptions.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class FirebaseAuthService {
   Future<User> createUserWithEmailAndPassword(
@@ -111,5 +112,62 @@ class FirebaseAuthService {
       );
     }
     return user;
+  }
+
+  Future<User?> signInWithFacebook() async {
+    try {
+      // Trigger the Facebook login flow
+      final LoginResult loginResult = await FacebookAuth.instance.login();
+
+      if (loginResult.status != LoginStatus.success ||
+          loginResult.accessToken == null) {
+        throw FirebaseAuthException(
+          code: 'ERROR_FACEBOOK_LOGIN_FAILED',
+          message: 'Facebook login failed or was cancelled.',
+        );
+      }
+
+      // Build Facebook credential
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+
+      // Attempt sign-in with Facebook
+      return (await FirebaseAuth.instance
+              .signInWithCredential(facebookAuthCredential))
+          .user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        final String? email = e.email;
+        final AuthCredential? pendingCred = e.credential;
+
+        // Let user sign in with existing provider (Google, for example)
+        final GoogleSignIn googleSignIn = GoogleSignIn();
+        final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+        if (googleUser == null) {
+          throw FirebaseAuthException(
+            code: 'ERROR_GOOGLE_SIGN_IN_CANCELLED',
+            message: 'Google sign-in was cancelled.',
+          );
+        }
+
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final AuthCredential googleCredential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        final UserCredential googleUserCred =
+            await FirebaseAuth.instance.signInWithCredential(googleCredential);
+
+        // Link the pending Facebook credential
+        await googleUserCred.user?.linkWithCredential(pendingCred!);
+        return googleUserCred.user;
+      }
+
+      // Re-throw other errors
+      rethrow;
+    }
   }
 }

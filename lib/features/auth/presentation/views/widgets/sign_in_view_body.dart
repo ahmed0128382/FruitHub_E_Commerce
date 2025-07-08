@@ -110,26 +110,31 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                 title: 'تسجيل بواسطة جوجل',
                 onPressed: () {
                   context.read<SignInCubit>().signInWithGoogle();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('تم تسجيل الدخول بواسطة جوجل')),
-                  );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(content: Text('تم تسجيل الدخول بواسطة جوجل')),
+                  //);
                 },
               ),
               SizedBox(
                 height: 16,
               ),
-              SocialLoginButton(
-                icon: AppImages.imagesAppleIcon,
-                title: 'تسجيل بواسطة أبل',
-                onPressed: () {},
-              ),
-              SizedBox(
-                height: 16,
-              ),
+              // SocialLoginButton(
+              //   icon: AppImages.imagesAppleIcon,
+              //   title: 'تسجيل بواسطة أبل',
+              //   onPressed: () {},
+              // ),
+              // SizedBox(
+              //   height: 16,
+              // ),
               SocialLoginButton(
                 icon: AppImages.imagesFaceBookIcon,
                 title: 'تسجيل بواسطة فيسبوك',
-                onPressed: () {},
+                onPressed: () {
+                  context.read<SignInCubit>().signInWithFacebook();
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(content: Text('تم تسجيل الدخول بواسطة فيسبوك')),
+                  // );
+                },
               ),
             ],
           ),
