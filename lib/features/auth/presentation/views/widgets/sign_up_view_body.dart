@@ -95,7 +95,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               CheckHaveAccountWidget(
                 notLinkedText: 'تمتلك حساب بالفعل؟',
                 linkedText: 'تسجيل دخول',
-                link: SignIn.routeName,
+                link: SignInView.routeName,
               )
             ],
           ),

@@ -16,7 +16,7 @@ class SignUpViewBodyBlocConsumer extends StatelessWidget {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          Navigator.of(context).pushReplacementNamed(SignIn.routeName);
+          Navigator.of(context).pushReplacementNamed(SignInView.routeName);
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('!لقد قمت بالتسجيل بنجاح')));
         }

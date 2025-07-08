@@ -48,7 +48,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
           seconds: 3,
         ), () {
       if (isOnBoardingViewSeen) {
-        Navigator.of(context).pushReplacementNamed(SignIn.routeName);
+        Navigator.of(context).pushReplacementNamed(SignInView.routeName);
       } else {
         Navigator.of(context).pushReplacementNamed(OnBoardingView.routeName);
       }

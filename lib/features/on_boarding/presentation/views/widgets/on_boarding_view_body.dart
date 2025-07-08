@@ -60,7 +60,8 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
               text: 'ابدأ الأن',
               onTap: () {
                 PrefS.setBool(kisOnBoardingViewSeen, true);
-                Navigator.of(context).pushReplacementNamed(SignIn.routeName);
+                Navigator.of(context)
+                    .pushReplacementNamed(SignInView.routeName);
               },
             ),
           ),
