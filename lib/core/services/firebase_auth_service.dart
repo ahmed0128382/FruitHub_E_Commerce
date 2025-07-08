@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruit_hub/core/errors/exceptions.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
   Future<User> createUserWithEmailAndPassword(
@@ -79,5 +80,36 @@ class FirebaseAuthService {
       throw CustomExceptions(
           message: 'لقد حدث خطأ ما! بالرجاء المحاولة مرة أخري');
     }
+  }
+
+  Future<User> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignIn googleSignIn = GoogleSignIn.standard(
+      scopes: [
+        'email',
+        // 'https://www.googleapis.com/auth/userinfo.profile',
+      ],
+    );
+
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    final user =
+        (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+    if (user == null) {
+      throw FirebaseAuthException(
+        code: 'USER_NULL',
+        message: 'Google Sign-In failed. User object is null.',
+      );
+    }
+    return user;
   }
 }
