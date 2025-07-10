@@ -6,6 +6,7 @@ import 'package:fruit_hub/core/errors/exceptions.dart';
 import 'package:fruit_hub/core/errors/failure.dart';
 import 'package:fruit_hub/core/services/data_service.dart';
 import 'package:fruit_hub/core/services/firebase_auth_service.dart';
+import 'package:fruit_hub/core/services/firestore_service.dart';
 import 'package:fruit_hub/core/utils/backend_endpoints.dart';
 import 'package:fruit_hub/features/auth/data/models/user_model.dart';
 import 'package:fruit_hub/features/auth/domain/entities/user_entity.dart';
@@ -23,7 +24,7 @@ class AuthRepoImpl extends AuthRepo {
     try {
       user = await firebaseAuthService.createUserWithEmailAndPassword(
           email: email, password: password);
-      var userEntity = UserEntity(name: name, email: email, uId: password);
+      var userEntity = UserEntity(name: name, email: email, password: password);
       await addUserData(user: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
@@ -53,7 +54,7 @@ class AuthRepoImpl extends AuthRepo {
         email: email,
         password: password,
       );
-      var userEntity = await getUserData(userId: user.uid);
+      var userEntity = await getUserData(userId: user.email!);
       return right(userEntity);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(message: e.message));
@@ -70,8 +71,20 @@ class AuthRepoImpl extends AuthRepo {
     User? user;
     try {
       user = await firebaseAuthService.signInWithGoogle();
-      var userEntity = UserModel.fromFirebaseUser(user!);
-      await addUserData(user: userEntity);
+      UserEntity userEntity;
+      userEntity = UserModel.fromFirebaseUser(user);
+      //FirestoreService.userId += 1;
+      // await addUserData(user: userEntity);
+      var isUserExists = await databaseService.checkIfDataExists(
+        path: BackendEndpoints.userDataPath,
+        docId: user.email!, // Using email as a unique identifier
+      );
+      if (isUserExists) {
+        await getUserData(userId: user.email!);
+      } else {
+        await addUserData(user: userEntity);
+      }
+
       return right(userEntity);
     } catch (e) {
       await deleteUser(user);
@@ -101,10 +114,12 @@ class AuthRepoImpl extends AuthRepo {
 
   @override
   Future addUserData({required UserEntity user}) async {
+    //FirestoreService.userId += 1; // Increment userId for each new user
     await databaseService.addData(
-        path: BackendEndpoints.userDataPath,
-        data: user.tomap(),
-        docId: user.uId);
+      path: BackendEndpoints.userDataPath,
+      data: user.tomap(),
+      docId: user.email, // Using email as a unique identifier
+    );
   }
 
   @override

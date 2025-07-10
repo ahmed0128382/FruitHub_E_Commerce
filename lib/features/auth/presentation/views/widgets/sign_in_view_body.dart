@@ -79,9 +79,11 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     context
                         .read<SignInCubit>()
                         .signInWithEmailAndPassword(email, password);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('تم تسجيل الدخول بنجاح')),
-                    );
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(
+                    //       content: Text(
+                    //           'signInWithEmailAndPassword تم تسجيل الدخول بنجاح')),
+                    // );
                   } else {
                     setState(() {
                       autovalidateMode = AutovalidateMode.always;

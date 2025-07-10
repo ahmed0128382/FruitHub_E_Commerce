@@ -6,13 +6,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class FirebaseAuthService {
-  Future deleteUser() async{
+  Future deleteUser() async {
     await FirebaseAuth.instance.currentUser!.delete().then((value) {
       log('User deleted successfully');
     }).catchError((error) {
       log('Error deleting user: $error');
     });
   }
+
   Future<User> createUserWithEmailAndPassword(
       {required String email, required String password}) async {
     try {
@@ -54,9 +55,8 @@ class FirebaseAuthService {
         email: email,
         password: password,
       );
-      
 
-      //  
+      //
 
       return credential.user!;
     } on FirebaseAuthException catch (e) {
@@ -94,8 +94,81 @@ class FirebaseAuthService {
     }
   }
 
+  // Future<User> signInWithGoogle() async {
+  //   // Trigger the authentication flow
+  //   final GoogleSignIn googleSignIn = GoogleSignIn.standard(
+  //     scopes: [
+  //       'email',
+  //       // 'https://www.googleapis.com/auth/userinfo.profile',
+  //     ],
+  //   );
+
+  //   final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+  //   // Obtain the auth details from the request
+  //   final GoogleSignInAuthentication? googleAuth =
+  //       await googleUser?.authentication;
+
+  //   // Create a new credential
+  //   final credential = GoogleAuthProvider.credential(
+  //     accessToken: googleAuth?.accessToken,
+  //     idToken: googleAuth?.idToken,
+  //   );
+  //   final user =
+  //       (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+  //   if (user == null) {
+  //     throw FirebaseAuthException(
+  //       code: 'USER_NULL',
+  //       message: 'Google Sign-In failed. User object is null.',
+  //     );
+  //   }
+  //   return user;
+  // }
+  // Future<User> signInWithGoogle() async {
+  //   final GoogleSignIn googleSignIn = GoogleSignIn.standard(
+  //     scopes: [
+  //       'email',
+  //       // 'https://www.googleapis.com/auth/userinfo.profile',
+  //     ],
+  //   );
+
+  //   // Disconnect previous session to avoid silent sign-in
+  //   await googleSignIn.disconnect();
+  //   await googleSignIn.signOut();
+
+  //   // Trigger the account selection flow
+  //   final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+  //   if (googleUser == null) {
+  //     throw FirebaseAuthException(
+  //       code: 'SIGN_IN_ABORTED',
+  //       message: 'User aborted Google Sign-In.',
+  //     );
+  //   }
+
+  //   final GoogleSignInAuthentication googleAuth =
+  //       await googleUser.authentication;
+
+  //   final AuthCredential credential = GoogleAuthProvider.credential(
+  //     accessToken: googleAuth.accessToken,
+  //     idToken: googleAuth.idToken,
+  //   );
+
+  //   final UserCredential userCredential =
+  //       await FirebaseAuth.instance.signInWithCredential(credential);
+
+  //   final User? user = userCredential.user;
+
+  //   if (user == null) {
+  //     throw FirebaseAuthException(
+  //       code: 'USER_NULL',
+  //       message: 'Google Sign-In failed. User object is null.',
+  //     );
+  //   }
+
+  //   return user;
+  // }
   Future<User> signInWithGoogle() async {
-    // Trigger the authentication flow
     final GoogleSignIn googleSignIn = GoogleSignIn.standard(
       scopes: [
         'email',
@@ -103,25 +176,55 @@ class FirebaseAuthService {
       ],
     );
 
+    // Disconnect previous session to avoid silent sign-in
+    await googleSignIn.disconnect();
+    await googleSignIn.signOut();
+
+    // Trigger the account selection flow
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    if (googleUser == null) {
+      throw FirebaseAuthException(
+        code: 'SIGN_IN_ABORTED',
+        message: 'User aborted Google Sign-In.',
+      );
+    }
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    final String email = googleUser.email;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+    // Check if email already exists
+    final List<String> signInMethods =
+        await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
-    final user =
-        (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+
+    UserCredential userCredential;
+
+    if (signInMethods.contains('google.com')) {
+      // Existing Google account → Sign in
+      userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+    } else {
+      // New registration using Google account
+      userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      // Optional: Trigger onboarding or store user data in Firestore
+    }
+
+    final User? user = userCredential.user;
+
     if (user == null) {
       throw FirebaseAuthException(
         code: 'USER_NULL',
         message: 'Google Sign-In failed. User object is null.',
       );
     }
+
     return user;
   }
 

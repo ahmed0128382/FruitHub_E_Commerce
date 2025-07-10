@@ -2,10 +2,9 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fruit_hub/core/services/data_service.dart';
-import 'package:fruit_hub/features/auth/data/models/user_model.dart';
-import 'package:fruit_hub/features/auth/domain/entities/user_entity.dart';
 
 class FirestoreService implements DatabaseService {
+  // Static variable to keep track of user ID
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   Future<void> addData(
@@ -42,5 +41,12 @@ class FirestoreService implements DatabaseService {
       {required String path, required String docId}) async {
     var docData = await firestore.collection(path).doc(docId).get();
     return docData.data() ?? {};
+  }
+
+  @override
+  Future<bool> checkIfDataExists(
+      {required String path, required String docId}) async {
+    var data = await firestore.collection(path).doc(docId).get();
+    return data.exists;
   }
 }
