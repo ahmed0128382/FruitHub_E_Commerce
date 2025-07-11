@@ -18,6 +18,10 @@ class AppImages {
   /// assets/images/FaceBook_Icon.svg
   static const String imagesFaceBookIcon = "assets/images/FaceBook_Icon.svg";
 
+  /// Assets for imagesFaceProfile
+  /// assets/images/face_profile.svg
+  static const String imagesFaceProfile = "assets/images/face_profile.svg";
+
   /// Assets for imagesFruitBasket
   /// assets/images/fruitBasket.svg
   static const String imagesFruitBasket = "assets/images/fruitBasket.svg";
@@ -38,6 +42,10 @@ class AppImages {
   /// assets/images/greenBackground.svg
   static const String imagesGreenBackground =
       "assets/images/greenBackground.svg";
+
+  /// Assets for imagesGreenEllipse
+  /// assets/images/green_ellipse.svg
+  static const String imagesGreenEllipse = "assets/images/green_ellipse.svg";
 
   /// Assets for imagesPaigeBackground
   /// assets/images/paigeBackground.svg
