@@ -14,6 +14,10 @@ class AppImages {
   /// assets/images/Circles.svg
   static const String imagesCircles = "assets/images/Circles.svg";
 
+  /// Assets for imagesCustomSearch
+  /// assets/images/custom_search.svg
+  static const String imagesCustomSearch = "assets/images/custom_search.svg";
+
   /// Assets for imagesFaceBookIcon
   /// assets/images/FaceBook_Icon.svg
   static const String imagesFaceBookIcon = "assets/images/FaceBook_Icon.svg";
@@ -21,6 +25,15 @@ class AppImages {
   /// Assets for imagesFaceProfile
   /// assets/images/face_profile.svg
   static const String imagesFaceProfile = "assets/images/face_profile.svg";
+
+  /// Assets for imagesFaceProfilePng
+  /// assets/images/Face_profile_png.png
+  static const String imagesFaceProfilePng =
+      "assets/images/Face_profile_png.png";
+
+  /// Assets for imagesFilterIcon
+  /// assets/images/filter_icon.svg
+  static const String imagesFilterIcon = "assets/images/filter_icon.svg";
 
   /// Assets for imagesFruitBasket
   /// assets/images/fruitBasket.svg
@@ -46,6 +59,10 @@ class AppImages {
   /// Assets for imagesGreenEllipse
   /// assets/images/green_ellipse.svg
   static const String imagesGreenEllipse = "assets/images/green_ellipse.svg";
+
+  /// Assets for imagesIllustrations
+  /// assets/images/Illustrations.svg
+  static const String imagesIllustrations = "assets/images/Illustrations.svg";
 
   /// Assets for imagesPaigeBackground
   /// assets/images/paigeBackground.svg

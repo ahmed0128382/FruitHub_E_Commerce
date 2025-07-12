@@ -176,11 +176,18 @@ class FirebaseAuthService {
       ],
     );
 
-    // Disconnect previous session to avoid silent sign-in
-    await googleSignIn.disconnect();
-    await googleSignIn.signOut();
+    // ✅ Only disconnect if already signed in
+    final isSignedIn = await googleSignIn.isSignedIn();
+    if (isSignedIn) {
+      try {
+        await googleSignIn.disconnect();
+        await googleSignIn.signOut();
+      } catch (e) {
+        log('Safe disconnect failed: $e');
+      }
+    }
 
-    // Trigger the account selection flow
+    // Start sign-in process
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
     if (googleUser == null) {
       throw FirebaseAuthException(
@@ -191,7 +198,7 @@ class FirebaseAuthService {
 
     final String email = googleUser.email;
 
-    // Check if email already exists
+    // Check sign-in methods for this email
     final List<String> signInMethods =
         await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
 
@@ -203,21 +210,11 @@ class FirebaseAuthService {
       idToken: googleAuth.idToken,
     );
 
-    UserCredential userCredential;
-
-    if (signInMethods.contains('google.com')) {
-      // Existing Google account → Sign in
-      userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-    } else {
-      // New registration using Google account
-      userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      // Optional: Trigger onboarding or store user data in Firestore
-    }
+    // Sign in or register
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
 
     final User? user = userCredential.user;
-
     if (user == null) {
       throw FirebaseAuthException(
         code: 'USER_NULL',

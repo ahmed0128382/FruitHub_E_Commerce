@@ -6,11 +6,11 @@ import 'package:fruit_hub/core/errors/exceptions.dart';
 import 'package:fruit_hub/core/errors/failure.dart';
 import 'package:fruit_hub/core/services/data_service.dart';
 import 'package:fruit_hub/core/services/firebase_auth_service.dart';
-import 'package:fruit_hub/core/services/firestore_service.dart';
 import 'package:fruit_hub/core/utils/backend_endpoints.dart';
 import 'package:fruit_hub/features/auth/data/models/user_model.dart';
 import 'package:fruit_hub/features/auth/domain/entities/user_entity.dart';
 import 'package:fruit_hub/features/auth/domain/repos/auth_repo.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepoImpl extends AuthRepo {
   final FirebaseAuthService firebaseAuthService;
@@ -67,18 +67,49 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
+  // Future<Either<Failure, UserEntity>> signInWithGoogle() async {
+  //   User? user;
+  //   try {
+  //     user = await firebaseAuthService.signInWithGoogle();
+  //     UserEntity userEntity;
+  //     userEntity = UserModel.fromFirebaseUser(user);
+  //     //FirestoreService.userId += 1;
+  //     // await addUserData(user: userEntity);
+  //     var isUserExists = await databaseService.checkIfDataExists(
+  //       path: BackendEndpoints.userDataPath,
+  //       docId: user.email!, // Using email as a unique identifier
+  //     );
+  //     if (isUserExists) {
+  //       await getUserData(userId: user.email!);
+  //     } else {
+  //       await addUserData(user: userEntity);
+  //     }
+
+  //     return right(userEntity);
+  //   } catch (e) {
+  //     await deleteUser(user);
+  //     log(
+  //       'Exception in AuthRepoImpl.signInWithGoogle : ${e.toString()}',
+  //     );
+  //     return left(ServerFailure(message: '!خطأ غير متوقع'));
+  //   }
+  // }
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
     User? user;
     try {
       user = await firebaseAuthService.signInWithGoogle();
-      UserEntity userEntity;
-      userEntity = UserModel.fromFirebaseUser(user);
-      //FirestoreService.userId += 1;
-      // await addUserData(user: userEntity);
-      var isUserExists = await databaseService.checkIfDataExists(
+
+      if (user == null) {
+        return left(ServerFailure(message: '!تعذر تسجيل الدخول إلى Google'));
+      }
+
+      final userEntity = UserModel.fromFirebaseUser(user);
+
+      final isUserExists = await databaseService.checkIfDataExists(
         path: BackendEndpoints.userDataPath,
-        docId: user.email!, // Using email as a unique identifier
+        docId: user.email!,
       );
+
       if (isUserExists) {
         await getUserData(userId: user.email!);
       } else {
@@ -87,11 +118,28 @@ class AuthRepoImpl extends AuthRepo {
 
       return right(userEntity);
     } catch (e) {
-      await deleteUser(user);
-      log(
-        'Exception in AuthRepoImpl.signInWithGoogle : ${e.toString()}',
-      );
-      return left(ServerFailure(message: '!خطأ غير متوقع'));
+      log('Exception in AuthRepoImpl.signInWithGoogle: $e');
+
+      // Attempt safe cleanup if needed
+      try {
+        final googleSignIn = GoogleSignIn();
+        if (await googleSignIn.isSignedIn()) {
+          await googleSignIn.disconnect();
+          await googleSignIn.signOut();
+        }
+      } catch (disconnectError) {
+        log('GoogleSignIn disconnect/signOut error: $disconnectError');
+      }
+
+      try {
+        if (user != null) {
+          await user.delete(); // only if recently signed in
+        }
+      } catch (deleteError) {
+        log('Firebase user delete error: $deleteError');
+      }
+
+      return left(ServerFailure(message: '!حدث خطأ أثناء تسجيل الدخول'));
     }
   }
 
