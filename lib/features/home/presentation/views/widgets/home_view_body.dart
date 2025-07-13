@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/constants.dart';
-import 'package:fruit_hub/core/widgets/grid_product_item.dart';
 import 'package:fruit_hub/core/widgets/search_text_field.dart';
+import 'package:fruit_hub/features/home/presentation/views/widgets/best_selling_sliver_grid_view.dart';
 import 'package:fruit_hub/features/home/presentation/views/widgets/best_selling_header.dart';
 import 'package:fruit_hub/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:fruit_hub/features/home/presentation/views/widgets/featured_list.dart';
@@ -28,10 +28,10 @@ class HomeViewBody extends StatelessWidget {
                 SizedBox(height: 12),
                 BestSellingHeader(),
                 SizedBox(height: 12),
-                GridProductItem(),
               ],
             ),
           ),
+          BestSellingSliverGridView(),
         ],
       ),
     );
