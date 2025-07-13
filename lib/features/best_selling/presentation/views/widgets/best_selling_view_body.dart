@@ -8,25 +8,25 @@ class BestSellingViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: const [
-        SliverToBoxAdapter(
-          child: SizedBox(height: 12),
-        ),
-        SliverToBoxAdapter(
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
+      child: CustomScrollView(
+        slivers: const [
+          SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+          SliverToBoxAdapter(
+            child: Align(
+              alignment: Alignment.centerRight,
               child: Text('الأكثر مبيعًا', style: AppStyles.semiBold19),
             ),
           ),
-        ),
-        SliverToBoxAdapter(
-          child: SizedBox(height: 12),
-        ),
-        BestSellingSliverGridView(),
-      ],
+          SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+          BestSellingSliverGridView(),
+        ],
+      ),
     );
   }
 }
