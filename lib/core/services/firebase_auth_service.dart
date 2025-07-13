@@ -281,4 +281,7 @@ class FirebaseAuthService {
       rethrow;
     }
   }
+  bool isSignedIn() {
+    return FirebaseAuth.instance.currentUser != null;
+  }
 }
