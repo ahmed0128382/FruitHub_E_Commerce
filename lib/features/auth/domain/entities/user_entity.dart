@@ -5,11 +5,11 @@ class UserEntity {
 
   UserEntity({required this.name, required this.email, required this.password});
 
-  tomap() {
-    return {
-      'name': name,
-      'email': email,
-      'password': password,
-    };
-  }
+  // tomap() {
+  //   return {
+  //     'name': name,
+  //     'email': email,
+  //     'password': password,
+  //   };
+  // }
 }

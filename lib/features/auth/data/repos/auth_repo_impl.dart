@@ -1,11 +1,14 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fruit_hub/constants.dart';
 import 'package:fruit_hub/core/errors/exceptions.dart';
 import 'package:fruit_hub/core/errors/failure.dart';
 import 'package:fruit_hub/core/services/data_service.dart';
 import 'package:fruit_hub/core/services/firebase_auth_service.dart';
+import 'package:fruit_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruit_hub/core/utils/backend_endpoints.dart';
 import 'package:fruit_hub/features/auth/data/models/user_model.dart';
 import 'package:fruit_hub/features/auth/domain/entities/user_entity.dart';
@@ -26,6 +29,7 @@ class AuthRepoImpl extends AuthRepo {
           email: email, password: password);
       var userEntity = UserEntity(name: name, email: email, password: password);
       await addUserData(user: userEntity);
+      await saveUserData(user: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
       await deleteUser(user);
@@ -165,7 +169,7 @@ class AuthRepoImpl extends AuthRepo {
     //FirestoreService.userId += 1; // Increment userId for each new user
     await databaseService.addData(
       path: BackendEndpoints.userDataPath,
-      data: user.tomap(),
+      data: UserModel.fromUserEntity(user).tomap(),
       docId: user.email, // Using email as a unique identifier
     );
   }
@@ -175,5 +179,11 @@ class AuthRepoImpl extends AuthRepo {
     var userData = await databaseService.getData(
         path: BackendEndpoints.userDataPath, docId: userId);
     return UserModel.fromJson(userData);
+  }
+
+  @override
+  Future saveUserData({required UserEntity user}) async {
+    var jsonData = jsonEncode(UserModel.fromUserEntity(user).tomap());
+    await PrefS.setString(kUserData, jsonData);
   }
 }
