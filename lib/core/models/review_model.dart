@@ -30,6 +30,11 @@ class ReviewModel {
       review: json['review'],
     );
   }
+  ReviewEntity toEntity() {
+    return ReviewEntity(
+        name: name, date: date, rating: rating, image: image, review: review);
+  }
+
   toJson() {
     return {
       'name': name,

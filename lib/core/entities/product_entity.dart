@@ -1,4 +1,5 @@
 import 'package:fruit_hub/core/entities/review_entity.dart';
+import 'package:fruit_hub/core/models/product_model.dart';
 
 class ProductEntity {
   final String name;

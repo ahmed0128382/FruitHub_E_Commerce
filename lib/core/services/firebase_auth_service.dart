@@ -248,7 +248,7 @@ class FirebaseAuthService {
           .user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        final String? email = e.email;
+        //final String? email = e.email;
         final AuthCredential? pendingCred = e.credential;
 
         // Let user sign in with existing provider (Google, for example)
@@ -281,6 +281,7 @@ class FirebaseAuthService {
       rethrow;
     }
   }
+
   bool isSignedIn() {
     return FirebaseAuth.instance.currentUser != null;
   }
