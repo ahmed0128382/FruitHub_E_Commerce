@@ -1,11 +1,10 @@
 import 'package:fruit_hub/core/entities/review_entity.dart';
-import 'package:fruit_hub/core/models/product_model.dart';
 
 class ProductEntity {
   final String name;
   final String description;
   final num price;
-  final dynamic image;
+  int sellingCount;
   final String code;
   final bool isFeatured;
   String? imageUrl;
@@ -18,11 +17,11 @@ class ProductEntity {
   final List<ReviewEntity> reviews;
 
   ProductEntity({
+    this.sellingCount = 0,
     required this.reviews,
     required this.name,
     required this.description,
     required this.price,
-    required this.image,
     required this.code,
     required this.isFeatured,
     this.imageUrl,

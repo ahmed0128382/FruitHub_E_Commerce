@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
+import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomProgressHud extends StatelessWidget {
   const CustomProgressHud(
@@ -8,8 +9,8 @@ class CustomProgressHud extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: isLoading,
+    return Skeletonizer.sliver(
+      enabled: isLoading,
       child: child,
     );
   }
