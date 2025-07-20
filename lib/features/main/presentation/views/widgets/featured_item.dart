@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg;
 import 'package:fruit_hub/core/utils/app_images.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
-import 'package:fruit_hub/features/home/presentation/views/widgets/featured_item_button.dart';
+import 'package:fruit_hub/features/main/presentation/views/widgets/featured_item_button.dart';
 
 class FeaturedItem extends StatelessWidget {
   const FeaturedItem({super.key});

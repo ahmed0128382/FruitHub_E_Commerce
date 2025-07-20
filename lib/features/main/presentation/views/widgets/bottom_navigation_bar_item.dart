@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/features/home/domain/entities/bottom_navigation_bar_entity.dart';
-import 'package:fruit_hub/features/home/presentation/views/widgets/active_icon_button.dart';
-import 'package:fruit_hub/features/home/presentation/views/widgets/inactive_icon_button.dart';
+import 'package:fruit_hub/features/main/domain/entities/bottom_navigation_bar_entity.dart';
+import 'package:fruit_hub/features/main/presentation/views/widgets/active_icon_button.dart';
+import 'package:fruit_hub/features/main/presentation/views/widgets/inactive_icon_button.dart';
 
 class CustomBottomNavigationBarItem extends StatelessWidget {
   const CustomBottomNavigationBarItem(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/constants.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
-import 'package:fruit_hub/features/home/presentation/views/widgets/best_selling_sliver_grid_view.dart';
+import 'package:fruit_hub/features/main/presentation/views/widgets/best_selling_sliver_grid_view.dart';
 
 class BestSellingViewBody extends StatelessWidget {
   const BestSellingViewBody({super.key});

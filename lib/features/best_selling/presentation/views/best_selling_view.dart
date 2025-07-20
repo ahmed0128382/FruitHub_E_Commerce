@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/widgets/app_bar_widget.dart';
 import 'package:fruit_hub/features/best_selling/presentation/views/widgets/best_selling_view_body.dart';
-import 'package:fruit_hub/features/home/presentation/views/widgets/custom_button_navigation_bar.dart';
+import 'package:fruit_hub/features/main/presentation/views/widgets/custom_button_navigation_bar.dart';
 
 class BestSellingView extends StatelessWidget {
   const BestSellingView({super.key});
