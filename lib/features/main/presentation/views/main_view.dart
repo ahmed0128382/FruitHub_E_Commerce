@@ -23,19 +23,20 @@ class _MainViewState extends State<MainView> {
     });
   }
 
-  Widget getCurrentView() {
-    return [
-      const HomeView(),
-      const ProductsView(),
-      const CartView(),
-      const ProfileView(),
-    ][currentViewIndex];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: getCurrentView()),
+      body: SafeArea(
+        child: IndexedStack(
+          index: currentViewIndex,
+          children: [
+            const HomeView(),
+            const ProductsView(),
+            const CartView(),
+            const ProfileView(),
+          ],
+        ),
+      ),
       bottomNavigationBar: CustomButtonNavigationBar(
         currentIndex: currentViewIndex,
         onTap: onTabSelected,

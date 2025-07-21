@@ -17,7 +17,9 @@ class ProductsViewBody extends StatefulWidget {
 class _ProductsViewBodyState extends State<ProductsViewBody> {
   @override
   void initState() {
-    context.read<ProductsCubit>().getProducts();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProductsCubit>().getProducts();
+    });
     super.initState();
   }
 
@@ -35,7 +37,8 @@ class _ProductsViewBodyState extends State<ProductsViewBody> {
                 SearchTextField(),
                 SizedBox(height: 12),
                 ProductsViewHeader(
-                    productsCount: context.read<ProductsCubit>().productsCount),
+                    productsCount:
+                        context.watch<ProductsCubit>().productsCount),
                 SizedBox(height: 12),
               ],
             ),
