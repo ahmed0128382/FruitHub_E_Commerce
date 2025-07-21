@@ -7,7 +7,9 @@ import 'package:fruit_hub/core/widgets/custom_sliver_loading.dart';
 import 'package:fruit_hub/features/main/presentation/views/widgets/best_selling_sliver_grid_view.dart';
 
 class BestSellingSliverGridViewBlocBuilder extends StatelessWidget {
-  const BestSellingSliverGridViewBlocBuilder({super.key});
+  const BestSellingSliverGridViewBlocBuilder({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

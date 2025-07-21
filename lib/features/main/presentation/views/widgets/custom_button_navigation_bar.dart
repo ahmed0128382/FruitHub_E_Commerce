@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/features/main/domain/entities/bottom_navigation_bar_entity.dart';
 import 'package:fruit_hub/features/main/presentation/views/widgets/bottom_navigation_bar_item.dart';
 
-class CustomButtonNavigationBar extends StatefulWidget {
-  const CustomButtonNavigationBar({super.key});
+class CustomButtonNavigationBar extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<int> onTap;
 
-  @override
-  State<CustomButtonNavigationBar> createState() =>
-      _CustomButtonNavigationBarState();
-}
-
-class _CustomButtonNavigationBarState extends State<CustomButtonNavigationBar> {
-  int selectedIndex = 0; // Index of the selected item
+  const CustomButtonNavigationBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTap,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,12 +37,11 @@ class _CustomButtonNavigationBarState extends State<CustomButtonNavigationBar> {
         children: List.generate(bottomNavigationBarItems.length, (index) {
           return CustomBottomNavigationBarItem(
             isActive:
-                index == selectedIndex, // Example: Set the first item as active
+                index == currentIndex, // Example: Set the first item as active
             item: bottomNavigationBarItems[index],
             onPressed: () {
-              setState(() {
-                selectedIndex = index;
-              });
+              onTap(
+                  index); // Call the onTap callback with the index of the pressed item
             },
           );
         }),

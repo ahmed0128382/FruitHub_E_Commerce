@@ -11,13 +11,19 @@ class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit(this.productsRepo) : super(ProductsInitial());
 
   final ProductsRepo productsRepo;
-
+  int productsCount = 0;
   Future<void> getProducts() async {
     emit(ProductsLoading());
     final failureOrProducts = await productsRepo.getProducts();
     failureOrProducts.fold(
-      (failure) => emit(ProductsFailure(errMessage: failure.message)),
-      (products) => emit(ProductsSuccess(products: products)),
+      (failure) {
+        log('Fetch error: in getProducts in ProductsCubit ${failure.message}');
+        emit(ProductsFailure(errMessage: failure.message));
+      },
+      (products) {
+        productsCount = products.length;
+        emit(ProductsSuccess(products: products));
+      },
     );
   }
 
