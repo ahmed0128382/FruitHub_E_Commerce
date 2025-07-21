@@ -59,6 +59,7 @@ class AuthRepoImpl extends AuthRepo {
         password: password,
       );
       var userEntity = await getUserData(userId: user.email!);
+      await saveUserData(user: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(message: e.message));
@@ -119,7 +120,8 @@ class AuthRepoImpl extends AuthRepo {
       } else {
         await addUserData(user: userEntity);
       }
-
+      // ✅ احفظ بيانات المستخدم محليًا
+      await saveUserData(user: userEntity);
       return right(userEntity);
     } catch (e) {
       log('Exception in AuthRepoImpl.signInWithGoogle: $e');
@@ -154,6 +156,8 @@ class AuthRepoImpl extends AuthRepo {
       user = await firebaseAuthService.signInWithFacebook();
       var userEntity = UserModel.fromFirebaseUser(user!);
       await addUserData(user: userEntity);
+      // ✅ احفظ بيانات المستخدم محليًا
+      await saveUserData(user: userEntity);
       return right(userEntity);
     } catch (e) {
       await deleteUser(user);

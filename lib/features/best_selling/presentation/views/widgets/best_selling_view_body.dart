@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/constants.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
-import 'package:fruit_hub/features/main/presentation/views/widgets/best_selling_sliver_grid_view_bloc_builder.dart';
+import 'package:fruit_hub/features/main/presentation/views/widgets/best_selling_sliver_grid_view.dart';
+import 'package:fruit_hub/core/helper/get_dumm_product.dart';
 
 class BestSellingViewBody extends StatelessWidget {
   const BestSellingViewBody({super.key});
@@ -11,20 +12,22 @@ class BestSellingViewBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
       child: CustomScrollView(
-        slivers: const [
-          SliverToBoxAdapter(
+        slivers: [
+          const SliverToBoxAdapter(
             child: SizedBox(height: 12),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Align(
               alignment: Alignment.centerRight,
               child: Text('الأكثر مبيعًا', style: AppStyles.semiBold19),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SizedBox(height: 12),
           ),
-          BestSellingSliverGridViewBlocBuilder(),
+          BestSellingSliverGridView(
+            products: getDummyProducts(count: 10),
+          ),
         ],
       ),
     );

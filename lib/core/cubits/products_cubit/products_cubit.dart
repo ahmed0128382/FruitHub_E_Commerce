@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:fruit_hub/core/entities/product_entity.dart';
 import 'package:fruit_hub/core/repos/products_repo.dart';
@@ -23,7 +25,12 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(ProductsLoading());
     final failureOrProducts = await productsRepo.getBestSellingProducts();
     failureOrProducts.fold(
-      (failure) => emit(ProductsFailure(errMessage: failure.message)),
+      (failure) {
+        log('Fetch error: in getBestSellingProducts in ProductsCubit ${failure.message}');
+        emit(
+          ProductsFailure(errMessage: failure.message),
+        );
+      },
       (products) => emit(ProductsSuccess(products: products)),
     );
   }

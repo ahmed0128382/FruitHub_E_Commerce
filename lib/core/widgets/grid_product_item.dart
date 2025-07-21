@@ -26,12 +26,18 @@ class GridProductItem extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0),
             child: Stack(
               children: [
-                SvgPicture.asset(
-                  AppImages.imagesPineapple,
+                Image.network(
+                  product.imageUrl!,
                   width: 163,
                   height: 130,
                   fit: BoxFit.cover,
                 ),
+                // SvgPicture.asset(
+                //   AppImages.imagesPineapple,
+                //   width: 163,
+                //   height: 130,
+                //   fit: BoxFit.cover,
+                // ),
                 Positioned(
                   top: 0,
                   right: 0,
@@ -53,7 +59,7 @@ class GridProductItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'أناناس',
+                      product.name,
                       style: AppStyles.semiBold16.copyWith(
                         color: Colors.black,
                       ),
@@ -62,7 +68,7 @@ class GridProductItem extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '20جنيه',
+                          '${product.price}جنيه',
                           style: AppStyles.bold13.copyWith(
                             color: Color(0xfff4a91f),
                           ),

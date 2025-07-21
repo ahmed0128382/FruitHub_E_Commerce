@@ -35,25 +35,46 @@ class ProductModel {
       this.ratingsCount = 0,
       this.sellingCount = 0,
       required this.reviews});
+  // factory ProductModel.fromJson(Map<String, dynamic> json) {
+  //   return ProductModel(
+  //     avgRating: getAvgRating(json['reviews']),
+  //     ratingsCount: json['ratingsCount'],
+  //     sellingCount: json['sellingCount'],
+  //     name: json['name'],
+  //     description: json['description'],
+  //     price: json['price'],
+  //     code: json['code'],
+  //     isFeatured: json['isFeatured'],
+  //     expirationMonths: json['expirationMonths'],
+  //     noOfCalories: json['noOfCalories'],
+  //     unitAmount: json['unitAmount'],
+  //     reviews: json['reviews'] != null
+  //         ? (json['reviews'] as List)
+  //             .map((e) => ReviewModel.fromJson(e))
+  //             .toList()
+  //         : [],
+  //   );
+  // }
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      avgRating: getAvgRating(json['reviews']),
-      ratingsCount: json['ratingsCount'],
-      sellingCount: json['sellingCount'],
+      code: json['code'],
       name: json['name'],
       description: json['description'],
-      price: json['price'],
-      code: json['code'],
+      imageUrl: json['imageUrl'],
+      isOrganic: json['isOrganic'],
       isFeatured: json['isFeatured'],
-      expirationMonths: json['expirationMonths'],
-      noOfCalories: json['noOfCalories'],
+      price: json['price'],
       unitAmount: json['unitAmount'],
-      reviews: json['reviews'] != null
-          ? List<ReviewModel>.from(
-              json['reviews'].map((e) => ReviewModel.fromJson(e)))
-          : [],
+      noOfCalories: json['noOfCalories'],
+      expirationMonths: json['expirationMonths'],
+      sellingCount: json['sellingCount'],
+      reviews: (json['reviews'] as List<dynamic>?)
+              ?.map((e) => ReviewModel.fromJson(e))
+              .toList() ??
+          [],
     );
   }
+
   ProductEntity toEntity() {
     return ProductEntity(
       sellingCount: sellingCount,
@@ -90,5 +111,20 @@ class ProductModel {
       //'avgRating': avgRating,
       //'ratingsCount': ratingsCount
     };
+  }
+
+  static List<ReviewModel> parseReviews(dynamic raw) {
+    if (raw is List) {
+      return raw.map((e) {
+        if (e is Map<String, dynamic>) {
+          return ReviewModel.fromJson(e);
+        } else if (e is Map) {
+          return ReviewModel.fromJson(Map<String, dynamic>.from(e));
+        } else {
+          throw Exception('Unexpected review item type: ${e.runtimeType}');
+        }
+      }).toList();
+    }
+    return [];
   }
 }

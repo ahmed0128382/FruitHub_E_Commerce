@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:fruit_hub/core/entities/product_entity.dart';
 import 'package:fruit_hub/core/errors/failure.dart';
@@ -10,19 +13,30 @@ class ProductsRepoImpl implements ProductsRepo {
   final DatabaseService databaseService;
 
   ProductsRepoImpl({required this.databaseService});
+
   @override
   Future<Either<Failure, List<ProductEntity>>> getBestSellingProducts() async {
     try {
       var data = await databaseService.getData(
-          path: BackendEndpoints.productsPath,
-          query: {
-            'limit': 10,
-            'orderBy': 'sellingCount',
-            'descending': true
-          }) as List<Map<String, dynamic>>;
+        path: BackendEndpoints.productsPath,
+        query: {
+          'limit': 10,
+          'orderBy': 'sellingCount',
+          'descending': true,
+        },
+      ) as List<Map<String, dynamic>>;
+      print('Raw product json: ${jsonEncode(data.first)}');
 
-      List<ProductEntity> products =
-          data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
+      List<ProductEntity> products = data.map((e) {
+        try {
+          return ProductModel.fromJson(e).toEntity();
+        } catch (err) {
+          log('Fetch error: in getBestSellingProducts in ProductsRepoImpl ');
+          print('❌ Error parsing product: $err');
+          print('🧾 Raw product data: $e');
+          throw Exception('Invalid product data');
+        }
+      }).toList();
 
       return Right(products);
     } catch (e) {
@@ -34,10 +48,18 @@ class ProductsRepoImpl implements ProductsRepo {
   Future<Either<Failure, List<ProductEntity>>> getProducts() async {
     try {
       var data = await databaseService.getData(
-          path: BackendEndpoints.productsPath) as List<Map<String, dynamic>>;
+        path: BackendEndpoints.productsPath,
+      ) as List<Map<String, dynamic>>;
 
-      List<ProductEntity> products =
-          data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
+      List<ProductEntity> products = data.map((e) {
+        try {
+          return ProductModel.fromJson(e).toEntity();
+        } catch (err) {
+          print('❌ Error parsing product: $err');
+          print('🧾 Raw product data: $e');
+          throw Exception('Invalid product data');
+        }
+      }).toList();
 
       return Right(products);
     } catch (e) {
