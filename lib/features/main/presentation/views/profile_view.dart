@@ -25,6 +25,7 @@ class _ProfileViewState extends State<ProfileView> {
       appBar: appBarWidget(
         context,
         title: 'حسابي',
+        showBackArrow: false,
       ),
       // bottomNavigationBar: CustomButtonNavigationBar(
       //   currentIndex: currentViewIndex,

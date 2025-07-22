@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
 
-AppBar appBarWidget(context, {required String title}) {
+AppBar appBarWidget(context,
+    {required String title, bool showBackArrow = true}) {
   return AppBar(
     backgroundColor: Colors.white,
     centerTitle: true,
@@ -10,11 +11,14 @@ AppBar appBarWidget(context, {required String title}) {
       title,
       style: AppStyles.bold19,
     ),
-    leading: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pop();
-        },
-        child: Icon(Icons.arrow_back_ios_new)),
+    leading: Visibility(
+      visible: showBackArrow,
+      child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back_ios_new)),
+    ),
     actions: [
       IconButton(
         icon: const Icon(

@@ -25,6 +25,7 @@ class _CartViewState extends State<CartView> {
       appBar: appBarWidget(
         context,
         title: 'سلة التسوق',
+        showBackArrow: false,
       ),
       // bottomNavigationBar: CustomButtonNavigationBar(
       //   currentIndex: currentViewIndex,

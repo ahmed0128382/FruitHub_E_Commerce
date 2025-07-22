@@ -33,6 +33,7 @@ class _ProductsViewState extends State<ProductsView> {
         appBar: appBarWidget(
           context,
           title: 'المنتجات',
+          showBackArrow: false,
         ),
         // bottomNavigationBar: CustomButtonNavigationBar(
         //   currentIndex: currentViewIndex,
