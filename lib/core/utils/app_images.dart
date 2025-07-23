@@ -81,4 +81,8 @@ class AppImages {
   /// Assets for imagesPlantInject
   /// assets/images/PlantInject.svg
   static const String imagesPlantInject = "assets/images/PlantInject.svg";
+
+  /// Assets for imagesTrash
+  /// assets/images/trash.svg
+  static const String imagesTrash = "assets/images/trash.svg";
 }
