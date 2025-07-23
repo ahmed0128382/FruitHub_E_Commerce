@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/constants.dart';
-import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/features/main/presentation/manager/CartCubit/cart_cubit.dart';
-import 'package:fruit_hub/features/main/presentation/manager/CartItemCubit/cart_item_cubit.dart';
 import 'package:fruit_hub/features/main/presentation/views/widgets/cart_items_sliver_list.dart';
 import 'package:fruit_hub/features/main/presentation/views/widgets/cart_view_header.dart';
+import 'package:fruit_hub/features/main/presentation/views/widgets/custom_cart_button_bloc_builder.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({super.key});
@@ -41,24 +40,6 @@ class CartViewBody extends StatelessWidget {
               child: CustomCartButtonBlocBuilder()),
         ],
       ),
-    );
-  }
-}
-
-class CustomCartButtonBlocBuilder extends StatelessWidget {
-  const CustomCartButtonBlocBuilder({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CartItemCubit, CartItemState>(
-      builder: (context, state) {
-        return CustomButton(
-            text:
-                'الدفع ${context.watch<CartCubit>().cartsEntity.getTotalCartCheckOutPrice()} جنيه',
-            onTap: () {});
-      },
     );
   }
 }
