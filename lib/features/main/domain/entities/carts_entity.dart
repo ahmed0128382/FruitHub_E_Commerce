@@ -34,7 +34,7 @@ class CartsEntity {
     for (var cart in carts) {
       total += cart.calculateTotalPrice();
     }
-    log('total money in button is: $total');
+    // log('total money in button is: $total');
     return total;
   }
 }
