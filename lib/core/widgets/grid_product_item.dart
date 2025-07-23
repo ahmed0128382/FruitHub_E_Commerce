@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/entities/product_entity.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
-import 'package:fruit_hub/core/utils/app_images.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
+import 'package:fruit_hub/features/main/presentation/manager/CartCubit/cart_cubit.dart';
 
 class GridProductItem extends StatelessWidget {
   const GridProductItem({super.key, required this.product});
@@ -84,11 +84,16 @@ class GridProductItem extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                CircleAvatar(
-                  backgroundColor: AppColors.primaryColor,
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    context.read<CartCubit>().addProduct(product);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: AppColors.primaryColor,
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
