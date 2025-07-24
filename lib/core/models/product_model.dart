@@ -1,6 +1,5 @@
 import 'package:fruit_hub/core/entities/product_entity.dart';
-import 'package:fruit_hub/core/entities/review_entity.dart';
-import 'package:fruit_hub/core/helper/get_avg_rating.dart';
+
 import 'package:fruit_hub/core/models/review_model.dart';
 
 class ProductModel {
