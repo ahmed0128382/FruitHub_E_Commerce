@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/widgets/app_bar_widget.dart';
-import 'package:fruit_hub/features/main/presentation/views/widgets/custom_button_navigation_bar.dart';
 import 'package:fruit_hub/features/main/presentation/views/widgets/profile_view_body.dart';
 
 class ProfileView extends StatefulWidget {

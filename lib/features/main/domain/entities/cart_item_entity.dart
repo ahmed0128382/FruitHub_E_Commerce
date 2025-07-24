@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fruit_hub/core/entities/product_entity.dart';
 
+// ignore: must_be_immutable
 class CartItemEntity extends Equatable {
   final ProductEntity product;
   int count;

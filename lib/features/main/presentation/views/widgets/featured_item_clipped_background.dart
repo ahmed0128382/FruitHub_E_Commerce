@@ -31,7 +31,7 @@ class LeftCurvedBiteClipper extends CustomClipper<Path> {
     final path = Path();
 
     final curveDepth = size.width * 0.15; // How deep the curved notch goes
-    final curveHeight = size.height * 0.5; // Vertical length of the curve
+    // Vertical length of the curve
 
     // Start at top-right
     path.moveTo(size.width, 0);

@@ -6,9 +6,8 @@ import 'package:fruit_hub/features/main/presentation/manager/CartCubit/cart_cubi
 import 'package:fruit_hub/features/main/presentation/manager/CartItemCubit/cart_item_cubit.dart';
 import 'package:fruit_hub/features/main/presentation/views/widgets/cart_items_sliver_list.dart';
 import 'package:fruit_hub/features/main/presentation/views/widgets/cart_view_header.dart';
-//import 'package:fruit_hub/features/main/presentation/views/widgets/custom_cart_button_bloc_builder.dart';
+
 import 'package:fruit_hub/features/main/presentation/views/widgets/expandableCartButton.dart';
-import 'package:fruit_hub/features/main/presentation/views/widgets/movable_cart_icon.dart';
 
 class CartViewBody extends StatefulWidget {
   const CartViewBody({super.key});

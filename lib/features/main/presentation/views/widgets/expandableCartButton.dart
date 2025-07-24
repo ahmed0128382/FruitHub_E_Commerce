@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
-import 'package:fruit_hub/features/main/presentation/manager/CartCubit/cart_cubit.dart';
-import 'package:fruit_hub/features/main/presentation/manager/CartItemCubit/cart_item_cubit.dart';
-import 'package:fruit_hub/features/main/presentation/views/widgets/movable_cart_icon.dart';
+import 'package:fruit_hub/features/checkout/presentation/views/checkout_view.dart';
 
 class ExpandableCartButton extends StatefulWidget {
   final VoidCallback onCollapse;
@@ -54,12 +51,13 @@ class _ExpandableCartButtonState extends State<ExpandableCartButton>
   Future<void> _handlePayment() async {
     if (isProcessing) return;
     isProcessing = true;
-
+    Navigator.of(context).pushNamed(CheckoutView.routeName);
     // Your payment flow goes here
     await Future.delayed(const Duration(milliseconds: 300));
 
     widget.onCollapse();
     _controller.reverse();
+
     isProcessing = false;
   }
 
