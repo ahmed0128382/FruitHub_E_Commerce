@@ -39,13 +39,14 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         children: [
           SizedBox(height: kTopPadding),
           CheckoutSteps(
+            pageController: pageController,
             pageNo: currentPage,
           ),
           Expanded(
             child: CheckOutStepsPageView(pageController: pageController),
           ),
           CustomButton(
-              text: 'التالي',
+              text: getNextButtonText(currentPage),
               onTap: () {
                 pageController.animateToPage(currentPage + 1,
                     duration: const Duration(milliseconds: 300),
@@ -55,5 +56,20 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         ],
       ),
     );
+  }
+
+  String getNextButtonText(int currentPage) {
+    switch (currentPage) {
+      case 0:
+        return 'التالي';
+      case 1:
+        return 'التالي';
+      case 2:
+        return 'ادفع عبر PayPal';
+      case 3:
+        return 'التالي';
+      default:
+        return 'التالي';
+    }
   }
 }
