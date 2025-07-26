@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widgets/payment_item.dart';
 
 class PaymentSection extends StatelessWidget {
@@ -7,6 +9,7 @@ class PaymentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var orderEntity = context.read<OrderEntity>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,7 +25,9 @@ class PaymentSection extends StatelessWidget {
                       style: AppStyles.regular13.copyWith(
                         color: Color(0xff4e5556),
                       )),
-                  Text('200 جنيه', style: AppStyles.semiBold13),
+                  Text(
+                      '${orderEntity.cartItems.getTotalCartCheckOutPrice()} جنيه',
+                      style: AppStyles.semiBold13),
                 ],
               ),
               const SizedBox(height: 8),
@@ -49,7 +54,9 @@ class PaymentSection extends StatelessWidget {
                       style: AppStyles.bold16.copyWith(
                         color: Color(0xff0c0d0d),
                       )),
-                  Text('230 جنيه', style: AppStyles.bold16),
+                  Text(
+                      '${orderEntity.cartItems.getTotalCartCheckOutPrice() + 30} جنيه',
+                      style: AppStyles.bold16),
                 ],
               ),
             ],

@@ -4,8 +4,11 @@ import 'package:fruit_hub/features/main/domain/entities/carts_entity.dart';
 class OrderEntity {
   final CartsEntity cartItems;
   bool? payWithCash;
-  ShippingAddressEntity? shippingAddress = ShippingAddressEntity();
+  ShippingAddressEntity shippingAddress;
 
-  OrderEntity(
-      {required this.cartItems, this.payWithCash, this.shippingAddress});
+  OrderEntity({
+    required this.cartItems,
+    this.payWithCash,
+    required this.shippingAddress,
+  });
 }

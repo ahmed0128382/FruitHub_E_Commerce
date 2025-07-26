@@ -22,7 +22,7 @@ class CheckoutSteps extends StatelessWidget {
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.bounceIn);
                     } else {
-                      switch (index) {
+                      switch (pageController.page) {
                         case 0:
                           buildErrorBar(context, 'يرجى تحديد طريقة الدفع');
                           break;
