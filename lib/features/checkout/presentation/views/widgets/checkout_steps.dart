@@ -17,22 +17,13 @@ class CheckoutSteps extends StatelessWidget {
           (index) => Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    if (context.read<OrderEntity>().payWithCash != null) {
+                    if (index < pageNo) {
                       pageController.animateToPage(index,
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.bounceIn);
                     } else {
-                      switch (pageController.page) {
-                        case 0:
-                          buildErrorBar(context, 'يرجى تحديد طريقة الدفع');
-                          break;
-                        case 1:
-                          buildErrorBar(context, 'يرجى تحديد عنوان الشحن');
-                          break;
-                        default:
-                          buildErrorBar(context, 'يرجى تحديد طريقة الدفع');
-                          break;
-                      }
+                      buildErrorBar(context,
+                          'لا يمكنك التقدم من هنا، أكمل البيانات أولًا');
                     }
                   },
                   child: CheckoutStepItem(
