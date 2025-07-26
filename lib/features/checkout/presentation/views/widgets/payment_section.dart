@@ -5,7 +5,8 @@ import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widgets/payment_item.dart';
 
 class PaymentSection extends StatelessWidget {
-  const PaymentSection({super.key});
+  const PaymentSection({super.key, required this.pageController});
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
@@ -81,54 +82,30 @@ class PaymentSection extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 8),
-                Row(
-                  mainAxisSize:
-                      MainAxisSize.min, // Keeps this row only as wide as needed
-                  children: [
-                    Icon(Icons.edit_location_outlined,
-                        color: Color(0xff949d9e)),
-                    SizedBox(width: 4),
-                    Text(
-                      'تعديل',
-                      style: AppStyles.regular11
-                          .copyWith(color: Color(0xff949d9e)),
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    pageController.animateToPage(
+                        ((pageController.page!).toInt() - 1),
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.bounceOut);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize
+                        .min, // Keeps this row only as wide as needed
+                    children: [
+                      Icon(Icons.edit_location_outlined,
+                          color: Color(0xff949d9e)),
+                      SizedBox(width: 4),
+                      Text(
+                        'تعديل',
+                        style: AppStyles.regular11
+                            .copyWith(color: Color(0xff949d9e)),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-            // child: Row(
-            //   children: [
-            //     Icon(
-            //       Icons.location_on_outlined,
-            //     ),
-            //     SizedBox(
-            //       width: 8,
-            //     ),
-            //     Expanded(
-            //       child: Text(
-            //         orderEntity.shippingAddress.toString(),
-            //         style: AppStyles.semiBold13,
-            //         softWrap: true,
-            //         maxLines: null,
-            //       ),
-            //     ),
-            //     Spacer(),
-            //     Icon(
-            //       Icons.edit_location_outlined,
-            //       color: Color(0xff949d9e),
-            //     ),
-            //     const SizedBox(
-            //       width: 4,
-            //     ),
-            //     Text(
-            //       'تعديل',
-            //       style: AppStyles.regular11.copyWith(
-            //         color: Color(0xff949d9e),
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ),
         ],
       ),
