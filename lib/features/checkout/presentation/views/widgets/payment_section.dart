@@ -10,88 +10,128 @@ class PaymentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var orderEntity = context.read<OrderEntity>();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 24),
-        PaymentItem(
-          title: 'ملخص الطلب :',
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('المجموع الفرعي',
-                      style: AppStyles.regular13.copyWith(
-                        color: Color(0xff4e5556),
-                      )),
-                  Text(
-                      '${orderEntity.cartItems.getTotalCartCheckOutPrice()} جنيه',
-                      style: AppStyles.semiBold13),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('التوصيل :',
-                      style: AppStyles.regular13.copyWith(
-                        color: Color(0xff4e5556),
-                      )),
-                  Text('30 جنيه', style: AppStyles.regular13),
-                ],
-              ),
-              const SizedBox(height: 9),
-              Divider(
-                thickness: 0.5,
-                color: Color(0xffcacece),
-              ),
-              const SizedBox(height: 9),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('الكلي :',
-                      style: AppStyles.bold16.copyWith(
-                        color: Color(0xff0c0d0d),
-                      )),
-                  Text(
-                      '${orderEntity.cartItems.getTotalCartCheckOutPrice() + 30} جنيه',
-                      style: AppStyles.bold16),
-                ],
-              ),
-            ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 24),
+          PaymentItem(
+            title: 'ملخص الطلب :',
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('المجموع الفرعي',
+                        style: AppStyles.regular13.copyWith(
+                          color: Color(0xff4e5556),
+                        )),
+                    Text(
+                        '${orderEntity.cartItems.getTotalCartCheckOutPrice()} جنيه',
+                        style: AppStyles.semiBold13),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('التوصيل :',
+                        style: AppStyles.regular13.copyWith(
+                          color: Color(0xff4e5556),
+                        )),
+                    Text('30 جنيه', style: AppStyles.regular13),
+                  ],
+                ),
+                const SizedBox(height: 9),
+                Divider(
+                  thickness: 0.5,
+                  color: Color(0xffcacece),
+                ),
+                const SizedBox(height: 9),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('الكلي :',
+                        style: AppStyles.bold16.copyWith(
+                          color: Color(0xff0c0d0d),
+                        )),
+                    Text(
+                        '${orderEntity.cartItems.getTotalCartCheckOutPrice() + 30} جنيه',
+                        style: AppStyles.bold16),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: 16),
-        PaymentItem(
+          const SizedBox(height: 16),
+          PaymentItem(
             title: 'عنوان التوصيل :',
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.location_on_outlined,
+                Icon(Icons.location_on_outlined),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    orderEntity.shippingAddress.toString(),
+                    style: AppStyles.semiBold13,
+                    softWrap: true,
+                    maxLines: null,
+                    overflow: TextOverflow.visible,
+                  ),
                 ),
-                SizedBox(
-                  width: 8,
+                SizedBox(width: 8),
+                Row(
+                  mainAxisSize:
+                      MainAxisSize.min, // Keeps this row only as wide as needed
+                  children: [
+                    Icon(Icons.edit_location_outlined,
+                        color: Color(0xff949d9e)),
+                    SizedBox(width: 4),
+                    Text(
+                      'تعديل',
+                      style: AppStyles.regular11
+                          .copyWith(color: Color(0xff949d9e)),
+                    ),
+                  ],
                 ),
-                Text(
-                  'مدينة السادات , المنوفية , مصر',
-                  style: AppStyles.semiBold13,
-                ),
-                Spacer(),
-                Icon(
-                  Icons.edit_location_outlined,
-                  color: Color(0xff949d9e),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  'تعديل',
-                  style: AppStyles.regular11.copyWith(color: Color(0xff949d9e)),
-                )
               ],
-            ))
-      ],
+            ),
+            // child: Row(
+            //   children: [
+            //     Icon(
+            //       Icons.location_on_outlined,
+            //     ),
+            //     SizedBox(
+            //       width: 8,
+            //     ),
+            //     Expanded(
+            //       child: Text(
+            //         orderEntity.shippingAddress.toString(),
+            //         style: AppStyles.semiBold13,
+            //         softWrap: true,
+            //         maxLines: null,
+            //       ),
+            //     ),
+            //     Spacer(),
+            //     Icon(
+            //       Icons.edit_location_outlined,
+            //       color: Color(0xff949d9e),
+            //     ),
+            //     const SizedBox(
+            //       width: 4,
+            //     ),
+            //     Text(
+            //       'تعديل',
+            //       style: AppStyles.regular11.copyWith(
+            //         color: Color(0xff949d9e),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+          ),
+        ],
+      ),
     );
   }
 }
