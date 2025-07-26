@@ -2,7 +2,7 @@ import 'package:fruit_hub/features/checkout/domain/entities/shipping_address_ent
 import 'package:fruit_hub/features/main/domain/entities/carts_entity.dart';
 
 class OrderEntity {
-  final String? uId;
+  final String uId;
   final CartsEntity cartItems;
   bool? payWithCash;
   ShippingAddressEntity shippingAddress;
