@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub/core/helper/build_error_bar.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widgets/checkout_step_item.dart';
 
 class CheckoutSteps extends StatelessWidget {
@@ -14,9 +17,23 @@ class CheckoutSteps extends StatelessWidget {
           (index) => Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    pageController.animateToPage(index,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.bounceIn);
+                    if (context.read<OrderEntity>().payWithCash != null) {
+                      pageController.animateToPage(index,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.bounceIn);
+                    } else {
+                      switch (index) {
+                        case 0:
+                          buildErrorBar(context, 'يرجى تحديد طريقة الدفع');
+                          break;
+                        case 1:
+                          buildErrorBar(context, 'يرجى تحديد عنوان الشحن');
+                          break;
+                        default:
+                          buildErrorBar(context, 'يرجى تحديد طريقة الدفع');
+                          break;
+                      }
+                    }
                   },
                   child: CheckoutStepItem(
                     isActive: pageNo >= index,

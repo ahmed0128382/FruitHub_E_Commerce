@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/checkout_view.dart';
+import 'package:fruit_hub/features/main/presentation/manager/CartCubit/cart_cubit.dart';
 
 class ExpandableCartButton extends StatefulWidget {
   final VoidCallback onCollapse;
@@ -51,7 +53,18 @@ class _ExpandableCartButtonState extends State<ExpandableCartButton>
   Future<void> _handlePayment() async {
     if (isProcessing) return;
     isProcessing = true;
-    Navigator.of(context).pushNamed(CheckoutView.routeName);
+    if (context.read<CartCubit>().cartsEntity.carts.isNotEmpty) {
+      Navigator.of(context).pushNamed(
+        CheckoutView.routeName,
+        arguments: context.read<CartCubit>().cartsEntity,
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('لا يوجد منتجات في سلة التسوق'),
+        ),
+      );
+    }
     // Your payment flow goes here
     await Future.delayed(const Duration(milliseconds: 300));
 
