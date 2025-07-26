@@ -15,6 +15,8 @@ class CheckoutViewBody extends StatefulWidget {
 }
 
 class _CheckoutViewBodyState extends State<CheckoutViewBody> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   late PageController pageController;
   int currentPage = 0;
   @override
@@ -46,7 +48,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             pageNo: currentPage,
           ),
           Expanded(
-            child: CheckOutStepsPageView(pageController: pageController),
+            child: CheckOutStepsPageView(
+                formKey: _formKey, pageController: pageController),
           ),
           CustomButton(
               text: getNextButtonText(currentPage),
@@ -73,8 +76,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         return 'التالي';
       case 2:
         return 'ادفع عبر PayPal';
-      case 3:
-        return 'التالي';
+      // case 3:
+      //   return 'التالي';
       default:
         return 'التالي';
     }
