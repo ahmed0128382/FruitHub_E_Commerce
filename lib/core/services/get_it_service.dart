@@ -1,4 +1,6 @@
 import 'package:fruit_hub/core/cubits/products_cubit/products_cubit.dart';
+import 'package:fruit_hub/core/repos/orders_repo/orders_repo.dart';
+import 'package:fruit_hub/core/repos/orders_repo/orders_repo_impl.dart';
 import 'package:fruit_hub/core/repos/products_repo/products_repo.dart';
 import 'package:fruit_hub/core/repos/products_repo/products_repo_impl.dart';
 import 'package:fruit_hub/core/services/data_service.dart';
@@ -20,5 +22,9 @@ void setupGetIt() {
   );
   getIt.registerSingleton<ProductsRepo>(
     ProductsRepoImpl(databaseService: getIt<DatabaseService>()),
+  );
+
+  getIt.registerSingleton<OrdersRepo>(
+    OrdersRepoImpl(databaseService: getIt<DatabaseService>()),
   );
 }
