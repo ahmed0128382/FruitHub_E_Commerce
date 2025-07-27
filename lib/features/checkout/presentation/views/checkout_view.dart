@@ -7,6 +7,7 @@ import 'package:fruit_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruit_hub/features/checkout/domain/entities/shipping_address_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/manager/add_order_cubit/add_order_cubit.dart';
+import 'package:fruit_hub/features/checkout/presentation/views/widgets/add_order_cubit_bloc_consumer.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widgets/checkout_view_body.dart';
 import 'package:fruit_hub/features/main/domain/entities/carts_entity.dart';
 
@@ -22,15 +23,18 @@ class CheckoutView extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: buildAppBar(context, title: 'الشحن'),
-        body: MultiRepositoryProvider(providers: [
-          RepositoryProvider<OrderEntity>(
-            create: (_) => OrderEntity(
-              uId: getUser().email,
-              shippingAddress: ShippingAddressEntity(),
-              cartItems: cartItems,
+        body: MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider<OrderEntity>(
+              create: (_) => OrderEntity(
+                uId: getUser().email,
+                shippingAddress: ShippingAddressEntity(),
+                cartItems: cartItems,
+              ),
             ),
-          ),
-        ], child: CheckoutViewBody()),
+          ],
+          child: AddOrderCubitBlocConsumer(child: CheckoutViewBody()),
+        ),
       ),
     );
   }

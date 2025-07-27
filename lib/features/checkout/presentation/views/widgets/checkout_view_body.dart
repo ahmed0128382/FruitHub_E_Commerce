@@ -6,6 +6,7 @@ import 'package:fruit_hub/constants.dart';
 import 'package:fruit_hub/core/helper/build_error_bar.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/checkout/presentation/manager/add_order_cubit/add_order_cubit.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widgets/checkout_steps.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widgets/checkout_steps_page_view.dart';
 
@@ -80,6 +81,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                     handleAddressValidation(context);
                     break;
                   case 2:
+                    var order = context.read<OrderEntity>();
+                    context.read<AddOrderCubit>().addOrder(order);
                     handlePaymentValidation(context);
                     break;
                   default:
