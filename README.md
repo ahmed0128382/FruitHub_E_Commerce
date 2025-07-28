@@ -64,7 +64,7 @@ Thank you! ❤️
 ## 📄 License
 
 Open-source for learning & personal use.  
-Commercial resale or rebranding not allowed without permission.
+
 
 ---
 ## 🙏 Support Me (Optional Donation)
