@@ -1,18 +1,27 @@
+import 'package:fruit_hub/core/helper/get_currency.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
+
 import 'details.dart';
 
-class Amount {
+class AmountEntity {
   String? total;
   String? currency;
-  Details? details;
+  DetailsEntity? details;
 
-  Amount({this.total, this.currency, this.details});
+  AmountEntity({this.total, this.currency, this.details});
 
-  factory Amount.fromJson(Map<String, dynamic> json) => Amount(
+  factory AmountEntity.fromOrderEntity(OrderEntity orderEntity) => AmountEntity(
+        total: orderEntity.calculateTotalPriceAfterDiscount().toString(),
+        currency: getCurrency(),
+        details: DetailsEntity.fromOrderEntity(orderEntity),
+      );
+
+  factory AmountEntity.fromJson(Map<String, dynamic> json) => AmountEntity(
         total: json['total'] as String?,
         currency: json['currency'] as String?,
         details: json['details'] == null
             ? null
-            : Details.fromJson(json['details'] as Map<String, dynamic>),
+            : DetailsEntity.fromJson(json['details'] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {
