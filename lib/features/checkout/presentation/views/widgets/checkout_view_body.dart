@@ -142,6 +142,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     var order = context.read<OrderEntity>();
     PaypalPaymentEntity paypalPayment =
         PaypalPaymentEntity.fromOrderEntity(order);
+    var addOrderCubit = context.read<AddOrderCubit>();
     Navigator.of(context).push(MaterialPageRoute(
       builder: (BuildContext context) => PaypalCheckoutView(
         sandboxMode: true,
@@ -153,7 +154,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         note: "Contact us for any questions on your order.",
         onSuccess: (Map params) async {
           Navigator.pop(context);
-          buildErrorBar(context, 'تم الدفع بنجاح');
+          addOrderCubit.addOrder(order);
+          //buildErrorBar(context, 'تم الدفع بنجاح');
         },
         onError: (error) {
           print("onError: $error");
