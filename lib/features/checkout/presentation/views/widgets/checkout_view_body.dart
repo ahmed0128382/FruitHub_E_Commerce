@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
@@ -154,7 +152,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         ],
         note: "Contact us for any questions on your order.",
         onSuccess: (Map params) async {
-          print("onSuccess: $params");
+          Navigator.pop(context);
+          buildErrorBar(context, 'تم الدفع بنجاح');
         },
         onError: (error) {
           print("onError: $error");
