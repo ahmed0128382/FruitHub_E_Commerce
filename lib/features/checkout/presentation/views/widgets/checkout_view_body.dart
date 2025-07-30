@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
@@ -81,8 +83,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                     handleAddressValidation(context);
                     break;
                   case 2:
-                    var order = context.read<OrderEntity>();
-                    context.read<AddOrderCubit>().addOrder(order);
+                    // var order = context.read<OrderEntity>();
+                    // context.read<AddOrderCubit>().addOrder(order);
                     handlePaymentValidation(context);
                     break;
                   default:
@@ -143,28 +145,49 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     PaypalPaymentEntity paypalPayment =
         PaypalPaymentEntity.fromOrderEntity(order);
     var addOrderCubit = context.read<AddOrderCubit>();
+    log("Navigating to PayPal page...");
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (BuildContext context) => PaypalCheckoutView(
-        sandboxMode: true,
-        clientId: paypalClientId,
-        secretKey: paypalSecretKey,
-        transactions: [
-          paypalPayment.toJson(),
-        ],
-        note: "Contact us for any questions on your order.",
-        onSuccess: (Map params) async {
-          Navigator.pop(context);
-          addOrderCubit.addOrder(order);
-          //buildErrorBar(context, 'تم الدفع بنجاح');
-        },
-        onError: (error) {
-          print("onError: $error");
-          Navigator.pop(context);
-        },
-        onCancel: () {
-          print('cancelled:');
-        },
+      builder: (BuildContext context) => Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Simulated PayPal Checkout"),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  addOrderCubit.addOrder(order);
+                },
+                child: Text("Simulate Success"),
+              ),
+            ],
+          ),
+        ),
       ),
     ));
   }
 }
+
+// PaypalCheckoutView(
+//         sandboxMode: true,
+//         clientId: paypalClientId,
+//         secretKey: paypalSecretKey,
+//         transactions: [
+//           paypalPayment.toJson(),
+//         ],
+//         note: "Contact us for any questions on your order.",
+//         onSuccess: (Map params) async {
+//           Navigator.pop(context);
+//           addOrderCubit.addOrder(order);
+//           //buildErrorBar(context, 'تم الدفع بنجاح');
+//         },
+//         onError: (error) {
+//           print("onError: $error");
+//           Navigator.pop(context);
+//         },
+//         onCancel: () {
+//           print('cancelled:');
+//         },
+//       ),
+//     )
