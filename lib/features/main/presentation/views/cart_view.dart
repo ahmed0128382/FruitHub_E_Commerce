@@ -33,10 +33,7 @@ class _CartViewState extends State<CartView> {
       //   currentIndex: currentViewIndex,
       //   onTap: onTabSelected,
       // ),
-      body: BlocProvider(
-        create: (context) => CartItemCubit(),
-        child: CartViewBody(),
-      ),
+      body: CartViewBody(),
     );
   }
 }

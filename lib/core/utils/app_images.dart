@@ -85,4 +85,8 @@ class AppImages {
   /// Assets for imagesTrash
   /// assets/images/trash.svg
   static const String imagesTrash = "assets/images/trash.svg";
+
+  /// Assets for imagesUserAvatar
+  /// assets/images/user_avatar.jpg
+  static const String imagesUserAvatar = "assets/images/user_avatar.jpg";
 }

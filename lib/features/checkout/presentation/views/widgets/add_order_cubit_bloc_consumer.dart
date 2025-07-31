@@ -13,9 +13,13 @@ class AddOrderCubitBlocConsumer extends StatelessWidget {
       listener: (context, state) {
         if (state is AddOrderSuccess) {
           buildErrorBar(context, 'تم اضافة الطلب بنجاح');
+          Navigator.pop(context);
+          Navigator.pop(context);
         }
         if (state is AddOrderFailure) {
           buildErrorBar(context, state.errMessage);
+          Navigator.pop(context);
+          Navigator.pop(context);
         }
       },
       builder: (context, state) {

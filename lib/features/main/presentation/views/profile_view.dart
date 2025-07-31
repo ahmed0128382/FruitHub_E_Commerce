@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/widgets/app_bar_widget.dart';
+import 'package:fruit_hub/features/auth/domain/entities/user_entity.dart';
 import 'package:fruit_hub/features/main/presentation/views/widgets/profile_view_body.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
+  const ProfileView({super.key, required this.user});
+  final UserEntity user;
 
   @override
   State<ProfileView> createState() => _ProfileViewState();
@@ -30,7 +32,9 @@ class _ProfileViewState extends State<ProfileView> {
       //   currentIndex: currentViewIndex,
       //   onTap: onTabSelected,
       // ),
-      body: ProfileViewBody(),
+      body: ProfileViewBody(
+        user: widget.user,
+      ),
     );
   }
 }

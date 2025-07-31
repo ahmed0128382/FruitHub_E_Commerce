@@ -25,22 +25,17 @@ class _ProductsViewState extends State<ProductsView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductsCubit(
-        getIt.get<ProductsRepo>(),
+    return Scaffold(
+      appBar: appBarWidget(
+        context,
+        title: 'المنتجات',
+        showBackArrow: false,
       ),
-      child: Scaffold(
-        appBar: appBarWidget(
-          context,
-          title: 'المنتجات',
-          showBackArrow: false,
-        ),
-        // bottomNavigationBar: CustomButtonNavigationBar(
-        //   currentIndex: currentViewIndex,
-        //   onTap: onTabSelected,
-        // ),
-        body: ProductsViewBody(),
-      ),
+      // bottomNavigationBar: CustomButtonNavigationBar(
+      //   currentIndex: currentViewIndex,
+      //   onTap: onTabSelected,
+      // ),
+      body: ProductsViewBody(),
     );
   }
 }

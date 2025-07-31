@@ -22,4 +22,8 @@ class PrefS {
   static getString(String key) {
     return _instance.getString(key) ?? '';
   }
+
+  static void clear() {
+    _instance.clear();
+  }
 }

@@ -154,10 +154,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             children: [
               Text("Simulated PayPal Checkout"),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  addOrderCubit.addOrder(order);
+                onPressed: () async {
+                  await addOrderCubit.addOrder(order);
                 },
                 child: Text("Simulate Success"),
               ),
