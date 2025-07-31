@@ -15,122 +15,122 @@ class ProfileViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<_ActionButtonData> actions = [
-      _ActionButtonData(
-        text: 'تعديل الملف الشخصي',
-        color: AppColors.lightprimaryColor,
-        onPressed: () {
-          // Navigator.push(...);
-        },
-      ),
-      _ActionButtonData(
-        text: 'الإعدادات',
-        color: AppColors.lightprimaryColor,
-        onPressed: () {
-          // Navigator.push(...);
-        },
-      ),
-      _ActionButtonData(
-        text: 'تسجيل الخروج',
-        color: Colors.red,
-        onPressed: () async {
-          final shouldLogout = await showDialog<bool>(
-            context: context,
-            builder: (_) => AlertDialog(
-              title: const Text('تأكيد تسجيل الخروج'),
-              content: const Text('هل أنت متأكد أنك تريد تسجيل الخروج؟'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: const Text('إلغاء'),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: const Text('تسجيل الخروج'),
-                ),
-              ],
-            ),
-          );
-
-          if (shouldLogout == true) {
-            try {
-              await getIt<FirebaseAuthService>().signOut();
-              PrefS.clear();
-              Navigator.pushReplacementNamed(context, SignInView.routeName);
-            } catch (e) {
-              buildErrorBar(context, 'لقد حدث خطأ في تسجيل الخروج');
-            }
-          }
-        },
-      ),
-    ];
-
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage:
-                    const AssetImage('assets/images/user_avatar.jpg'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Avatar + Name + Email
+            CircleAvatar(
+              radius: 50,
+              backgroundImage:
+                  const AssetImage('assets/images/user_avatar.jpg'),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              user.name,
+              style: AppStyles.bold16.copyWith(fontSize: 20),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              user.email,
+              style: AppStyles.regular13.copyWith(color: Colors.grey[600]),
+            ),
+            const SizedBox(height: 32),
+
+            // Action List
+            Expanded(
+              child: ListView(
+                children: [
+                  _buildProfileTile(
+                    context,
+                    icon: Icons.edit,
+                    text: 'تعديل الملف الشخصي',
+                    onTap: () {
+                      // Navigate to edit
+                    },
+                  ),
+                  _buildProfileTile(
+                    context,
+                    icon: Icons.settings,
+                    text: 'الإعدادات',
+                    onTap: () {
+                      // Navigate to settings
+                    },
+                  ),
+                  _buildProfileTile(
+                    context,
+                    icon: Icons.logout,
+                    text: 'تسجيل الخروج',
+                    iconColor: Colors.red,
+                    textColor: Colors.red,
+                    onTap: () => _showLogoutDialog(context),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              Text(
-                user.name,
-                style: AppStyles.bold16.copyWith(fontSize: 18),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                user.email,
-                style: AppStyles.regular13.copyWith(color: Colors.grey[600]),
-              ),
-              const SizedBox(height: 24),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: actions.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
-                itemBuilder: (context, index) => _buildActionButton(
-                  context,
-                  text: actions[index].text,
-                  color: actions[index].color,
-                  onPressed: actions[index].onPressed,
-                ),
-              ),
-            ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileTile(
+    BuildContext context, {
+    required IconData icon,
+    required String text,
+    required VoidCallback onTap,
+    Color? iconColor,
+    Color? textColor,
+  }) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 2,
+      child: ListTile(
+        onTap: onTap,
+        leading: Icon(icon, color: iconColor ?? AppColors.lightprimaryColor),
+        title: Text(
+          text,
+          style: TextStyle(
+            fontSize: 16,
+            color: textColor ?? Colors.black87,
+            fontWeight: FontWeight.w500,
           ),
         ),
+        trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 18),
       ),
     );
   }
 
-  Widget _buildActionButton(BuildContext context,
-      {required String text,
-      required Color color,
-      required VoidCallback onPressed}) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+  Future<void> _showLogoutDialog(BuildContext context) async {
+    final shouldLogout = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('تأكيد تسجيل الخروج'),
+        content: const Text('هل أنت متأكد أنك تريد تسجيل الخروج؟'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('إلغاء'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('تسجيل الخروج'),
+          ),
+        ],
       ),
-      onPressed: onPressed,
-      child: Text(text),
     );
+
+    if (shouldLogout == true) {
+      try {
+        await getIt<FirebaseAuthService>().signOut();
+        PrefS.clear();
+        Navigator.pushReplacementNamed(context, SignInView.routeName);
+      } catch (e) {
+        buildErrorBar(context, 'لقد حدث خطأ في تسجيل الخروج');
+      }
+    }
   }
-}
-
-class _ActionButtonData {
-  final String text;
-  final Color color;
-  final VoidCallback onPressed;
-
-  _ActionButtonData({
-    required this.text,
-    required this.color,
-    required this.onPressed,
-  });
 }
