@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/core/helper/build_error_bar.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
 
@@ -28,9 +29,7 @@ AppBar appBarWidget(context,
         ),
         onPressed: () {
           // Handle notification button press
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('لا توجد إشعارات جديدة')),
-          );
+          buildErrorBar(context, 'لا توجد إشعارات جديدة');
         },
       ),
     ],
