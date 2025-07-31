@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/constants.dart';
+import 'package:fruit_hub/core/cubits/best_selling_products_cubit/best_selling_products_cubit.dart';
 import 'package:fruit_hub/core/utils/app_styles.dart';
-import 'package:fruit_hub/features/main/presentation/views/widgets/best_selling_sliver_grid_view.dart';
-import 'package:fruit_hub/core/helper/get_dumm_product.dart';
+import 'package:fruit_hub/features/main/presentation/views/widgets/best_selling_sliver_grid_view_bloc_builder.dart';
 
-class BestSellingViewBody extends StatelessWidget {
+class BestSellingViewBody extends StatefulWidget {
   const BestSellingViewBody({super.key});
+
+  @override
+  State<BestSellingViewBody> createState() => _BestSellingViewBodyState();
+}
+
+class _BestSellingViewBodyState extends State<BestSellingViewBody> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<BestSellingProductsCubit>().getBestSellingProducts();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +39,7 @@ class BestSellingViewBody extends StatelessWidget {
           const SliverToBoxAdapter(
             child: SizedBox(height: 12),
           ),
-          BestSellingSliverGridView(
-            products: getDummyProducts(count: 10),
-          ),
+          BestSellingSliverGridViewBlocBuilder(),
         ],
       ),
     );

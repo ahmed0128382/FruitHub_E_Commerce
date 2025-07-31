@@ -31,6 +31,29 @@ class GridProductItem extends StatelessWidget {
                   width: 163,
                   height: 130,
                   fit: BoxFit.cover,
+                  // أثناء التحميل الجزئي للصورة
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      width: 163,
+                      height: 130,
+                      color: Colors.grey.shade200,
+                      child: const Center(
+                          child: CircularProgressIndicator(strokeWidth: 2)),
+                    );
+                  },
+                  // عند فشل التحميل
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: 163,
+                      height: 130,
+                      color: Colors.grey.shade300,
+                      child: const Center(
+                        child: Icon(Icons.broken_image,
+                            color: Colors.grey, size: 40),
+                      ),
+                    );
+                  },
                 ),
                 // SvgPicture.asset(
                 //   AppImages.imagesPineapple,

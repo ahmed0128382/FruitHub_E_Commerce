@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -25,7 +24,8 @@ class ProductsRepoImpl implements ProductsRepo {
           'descending': true,
         },
       ) as List<Map<String, dynamic>>;
-      print('Raw product json: ${jsonEncode(data.first)}');
+
+      //print('Raw product json: ${jsonEncode(data.first)}');
 
       List<ProductEntity> products = data.map((e) {
         try {
@@ -37,7 +37,7 @@ class ProductsRepoImpl implements ProductsRepo {
           throw Exception('Invalid product data');
         }
       }).toList();
-
+      //log('getBestSellingProducts no in Products repo impl is :   ${products.length}');
       return Right(products);
     } catch (e) {
       return Left(ServerFailure(message: 'Could not fetch products: $e'));
@@ -60,7 +60,7 @@ class ProductsRepoImpl implements ProductsRepo {
           throw Exception('Invalid product data');
         }
       }).toList();
-
+      //log('getProducts no in Products repo impl is :   ${products.length}');
       return Right(products);
     } catch (e) {
       return Left(ServerFailure(message: 'Could not fetch products: $e'));

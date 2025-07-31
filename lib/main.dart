@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fruit_hub/core/cubits/best_selling_products_cubit/best_selling_products_cubit.dart';
 import 'package:fruit_hub/core/cubits/products_cubit/products_cubit.dart';
 import 'package:fruit_hub/core/helper/on_generate_route.dart';
 import 'package:fruit_hub/core/repos/products_repo/products_repo.dart';
@@ -12,6 +13,7 @@ import 'package:fruit_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/features/main/presentation/manager/CartCubit/cart_cubit.dart';
 import 'package:fruit_hub/features/main/presentation/manager/CartItemCubit/cart_item_cubit.dart';
+import 'package:fruit_hub/features/main/presentation/views/widgets/best_selling_header.dart';
 import 'package:fruit_hub/features/splash/presentation/views/splash_view.dart';
 import 'package:fruit_hub/generated/l10n.dart';
 
@@ -40,6 +42,8 @@ class FruitCommerceApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => CartCubit()),
         BlocProvider(create: (_) => ProductsCubit(getIt.get<ProductsRepo>())),
+        BlocProvider(
+            create: (_) => BestSellingProductsCubit(getIt.get<ProductsRepo>())),
         BlocProvider(create: (_) => CartItemCubit()),
       ],
       child: MaterialApp(

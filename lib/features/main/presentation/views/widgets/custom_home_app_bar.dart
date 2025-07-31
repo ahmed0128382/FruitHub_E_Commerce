@@ -43,7 +43,10 @@ class CustomHomeAppBar extends StatelessWidget {
           onPressed: () {
             // Handle notification button press
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('لا توجد إشعارات جديدة')),
+              const SnackBar(
+                content: Text('لا توجد إشعارات جديدة'),
+                duration: Duration(seconds: 1),
+              ),
             );
           },
         ),

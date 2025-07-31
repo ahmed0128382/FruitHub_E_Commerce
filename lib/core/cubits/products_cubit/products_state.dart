@@ -14,5 +14,13 @@ final class ProductsFailure extends ProductsState {
 
 final class ProductsSuccess extends ProductsState {
   final List<ProductEntity> products;
-  ProductsSuccess({required this.products});
+
+  ProductsSuccess({
+    required this.products,
+  });
 }
+
+// final class BestSellingProductsSuccess extends ProductsState {
+//   final List<ProductEntity> bestSellingProducts;
+//   BestSellingProductsSuccess({required this.bestSellingProducts});
+// }
